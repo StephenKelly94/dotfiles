@@ -28,7 +28,7 @@ return require('packer').startup(function(use)
     -- My plugins here
     use('nvim-lua/plenary.nvim')
 
-    use('folke/tokyonight.nvim') -- Colorscheme
+    use('shaunsingh/nord.nvim') -- Colorscheme
     use('folke/which-key.nvim') -- Show Keymappings
     use('declancm/maximize.nvim') -- Focus current window
     use('tpope/vim-surround') -- Change surrounding quotes or brackets

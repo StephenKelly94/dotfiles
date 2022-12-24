@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/home/sdk/.local/share/nvim/site/pack/packer/start/maximize.nvim",
     url = "https://github.com/declancm/maximize.nvim"
   },
+  ["nord.nvim"] = {
+    loaded = true,
+    path = "/home/sdk/.local/share/nvim/site/pack/packer/start/nord.nvim",
+    url = "https://github.com/shaunsingh/nord.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/sdk/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -173,11 +178,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sdk/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/sdk/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["vim-surround"] = {
     loaded = true,
