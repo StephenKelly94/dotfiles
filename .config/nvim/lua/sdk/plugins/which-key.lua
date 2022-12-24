@@ -1,6 +1,6 @@
 local setup, wk = pcall(require, "which-key")
 if not setup then
-    print("No which-key jinstalled")
+    print("No which-key installed")
     return
 end
 
@@ -8,6 +8,12 @@ wk.register({
     b = {
         name = "Buffers",
         f = {"<cmd>Telescope buffers previewer=false<cr>", "Find"}
+    },
+    c = {
+        function()
+            require("sdk.core.functions").buf_kill("bd")
+        end, 
+        "Close buffer"
     },
     e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
     f = {

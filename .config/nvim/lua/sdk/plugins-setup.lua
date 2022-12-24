@@ -34,6 +34,9 @@ return require('packer').startup(function(use)
     use('tpope/vim-surround') -- Change surrounding quotes or brackets
     use('numToStr/Comment.nvim') -- Commenting with gc
     use('nvim-lualine/lualine.nvim') -- Status line
+    use('RRethy/vim-illuminate') -- Highlight similar text
+    use('lukas-reineke/indent-blankline.nvim') -- Show indentation guides
+    use("folke/neodev.nvim") -- Neovim lua development
 
     --Autocompletion
     use('hrsh7th/cmp-nvim-lsp')
@@ -52,6 +55,25 @@ return require('packer').startup(function(use)
     use("williamboman/mason-lspconfig.nvim")
     use("neovim/nvim-lspconfig")
 
+    -- Bufferline
+    use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+
+    -- Treesitter
+    use({
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+            ts_update()
+        end, 
+    }) 
+    use("windwp/nvim-autopairs")
+    use("windwp/nvim-ts-autotag")
+
+    -- git
+    use('tpope/vim-fugitive')
+    use('lewis6991/gitsigns.nvim')
+    use('f-person/git-blame.nvim')
+
     use({
         'nvim-telescope/telescope.nvim',
         requires = {
@@ -66,6 +88,11 @@ return require('packer').startup(function(use)
             'nvim-tree/nvim-web-devicons'
         }
     } -- File Explorer
+
+    use {
+        'goolord/alpha-nvim',
+        requires = { 'nvim-tree/nvim-web-devicons' },
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

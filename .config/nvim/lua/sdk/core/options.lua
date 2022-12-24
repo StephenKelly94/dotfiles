@@ -36,3 +36,7 @@ opt.splitbelow = true
 opt.iskeyword:append("-")
 
 opt.scrolloff = 8
+
+opt.list = true
+opt.listchars:append "space:⋅"
+opt.listchars:append "eol:↴"
