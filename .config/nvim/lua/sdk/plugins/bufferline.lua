@@ -11,13 +11,16 @@ bufferline.setup({
         background = {
             italic = true,
         },
+        buffer_visible = {
+            fg = "#969696",
+        },
         buffer_selected = {
             bold = true,
         },
     },
     options = {
-        mode = "buffers", -- set to "tabs" to only show tabpages instead
-        numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function
+        mode = "buffers", 
+        numbers = "buffer_id", 
         close_command = function(bufnr) -- can be a string | function, see "Mouse actions"
             functions.buf_kill("bd", bufnr, false)
         end,

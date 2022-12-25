@@ -19,6 +19,7 @@ treesitter.setup({
         "vim",
         "gitignore",
         "bash",
+        "go",
     },
     auto_install = true
 })

@@ -36,10 +36,10 @@ return require('packer').startup(function(use)
     use('nvim-lualine/lualine.nvim') -- Status line
     use('RRethy/vim-illuminate') -- Highlight similar text
     use('lukas-reineke/indent-blankline.nvim') -- Show indentation guides
-    use("folke/neodev.nvim") -- Neovim lua development
+    use('mbbill/undotree')
+    use('ThePrimeagen/harpoon')
 
     --Autocompletion
-    use('hrsh7th/cmp-nvim-lsp')
     use('hrsh7th/cmp-buffer')
     use('hrsh7th/cmp-path')
     use('hrsh7th/cmp-cmdline')
@@ -54,6 +54,8 @@ return require('packer').startup(function(use)
     use("williamboman/mason.nvim")
     use("williamboman/mason-lspconfig.nvim")
     use("neovim/nvim-lspconfig")
+    use('hrsh7th/cmp-nvim-lsp')
+    use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
 
     -- Bufferline
     use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
@@ -64,8 +66,9 @@ return require('packer').startup(function(use)
         run = function()
             local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
             ts_update()
-        end, 
-    }) 
+        end,
+    })
+
     use("windwp/nvim-autopairs")
     use("windwp/nvim-ts-autotag")
 

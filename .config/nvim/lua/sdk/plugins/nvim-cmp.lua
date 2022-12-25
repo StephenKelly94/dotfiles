@@ -87,6 +87,7 @@ local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
+
 local cmp_setup, cmp = pcall(require, "cmp")
 if not cmp_setup then
     print("No cmp installed")
@@ -96,6 +97,12 @@ end
 local lua_setup, luasnip = pcall(require, "luasnip")
 if not lua_setup then
     print("No luasnip installed")
+    return
+end
+
+local lsp_kind_status, lspkind = pcall(require, "lspkind")
+if not lsp_kind_status then
+    print("No lsp_kind installed")
     return
 end
 
@@ -109,19 +116,7 @@ cmp.setup({
         end,
     },
     sources = {
-        {
-            name = "nvim_lsp",
-            entry_filter = function(entry, ctx)
-                local kind = cmp.types.lsp.CompletionItemKind[entry:get_kind()]
-                if kind == "Snippet" and ctx.prev_context.filetype == "java" then
-                    return false
-                end
-                if kind == "Text" then
-                    return false
-                end
-                return true
-            end,
-        },
+        { name = "nvim_lsp" },
         { name = "path" },
         { name = "luasnip" },
         { name = "nvim_lua" },
@@ -178,5 +173,11 @@ cmp.setup({
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
     },
+    formatting = {
+    format = lspkind.cmp_format({
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+    })
+  }
 })
 
