@@ -10,7 +10,11 @@ if not mason_lspconfig_status then
     return
 end
 
-mason.setup()
+mason.setup({
+    ui = {
+        border = "single"
+    }
+})
 mason_lspconfig.setup({
     ensure_installed = {
         "pyright",

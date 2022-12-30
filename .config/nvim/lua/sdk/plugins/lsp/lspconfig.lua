@@ -16,6 +16,8 @@ if not mason_lsp_status then
     return
 end
 
+require('lspconfig.ui.windows').default_options.border = 'single'
+
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
