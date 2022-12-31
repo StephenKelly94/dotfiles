@@ -1,32 +1,45 @@
 #!/bin/bash
+set -e -o pipefail # fail on error and report it, debug all lines
 
-# sudo apt install zsh-autosuggestions zsh-syntax-highlighting zsh
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-# git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-# git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
-
-set -eu -o pipefail # fail on error and report it, debug all lines
-
-sudo -n true
-test $? -eq 0 || exit 1 "you should have sudo privilege to run this script"
-
+echo "Adding and updating repos"
 sudo add-apt-repository ppa:aslatter/ppa -y
-sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo apt-get update
 
-sudo apt-update
-echo installing the must-have pre-requisites
-while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
-    zip unzip
-    curl
-    alacritty
-    neovim
-    tmux
-    zsh
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-EOF
+install_packages=(
+    "zip"
+    "unzip"
+    "git"
+    "curl"
+    "alacritty"
+    "neovim"
+    "tmux"
+    "zsh"
 )
 
+# Detect package manager
+echo "Installing the must-have pre-requisites"
+if [[ $(command -v apt-get) ]]; then
+    echo "Detected apt-get"
+    sudo apt-get install $install_packages
+elif [[ $(command -v pacman) ]]; then
+    sudo pacman -S $install_packages
+fi
+
+echo "Installing oh my zsh and plugins"
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+    echo "Already installed"
+fi
+ZSH_CUSTOM=${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}
+echo $ZSH_CUSTOM
+
+sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
+sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
+sudo git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting
+sudo git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM}/plugins/zsh-autocomplete
+
 chsh -s $(which zsh)
+
+echo "Shell changed remember to reboot"
