@@ -40,3 +40,13 @@ opt.scrolloff = 8
 opt.list = true
 opt.listchars:append "space:⋅"
 opt.listchars:append "eol:↴"
+
+if vim.fn.has("persistent_undo") then
+    local target_path = vim.fn.expand("~/.undodir")
+    if vim.fn.isdirectory(target_path) then
+        vim.fn.mkdir(target_path, "p", 0777)
+    end
+
+    opt.undodir = "~/.undodir/"
+    opt.undofile = true
+end

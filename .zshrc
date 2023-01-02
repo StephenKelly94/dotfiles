@@ -74,9 +74,7 @@ plugins=(
     git
     tmux
     zsh-autosuggestions
-    zsh-syntax-highlighting
     fast-syntax-highlighting
-    zsh-autocomplete
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -97,7 +95,6 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-alias nvim="~/Downloads/nvim.appimage"
 alias zshconfig="nvim ~/.zshrc"
 
 export NVM_DIR="$HOME/.nvm"
