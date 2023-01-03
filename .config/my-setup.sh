@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -o pipefail # fail on error and report it, debug all lines
 
-install_packages="zip unzip git curl alacritty neovim tmux zsh ripgrep fd"
+install_packages="zip unzip git curl alacritty neovim tmux zsh papirus-icon-theme ripgrep fd"
 
 # Detect package manager
 if [[ $(command -v apt-get) ]]; then
@@ -9,6 +9,7 @@ if [[ $(command -v apt-get) ]]; then
     echo "Adding and updating repos"
     sudo add-apt-repository ppa:aslatter/ppa -y
     sudo add-apt-repository ppa:neovim-ppa/unstable -y
+    sudo add-apt-repository ppa:papirus/papirus -y
     sudo apt-get update
 
     echo "Installing the must-have pre-requisites"

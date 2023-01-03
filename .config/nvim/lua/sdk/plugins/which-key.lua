@@ -52,22 +52,14 @@ wk.register({
         r = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk" },
         R = { "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset Buffer" },
         s = { "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage Hunk" },
-        u = {
-            "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>",
-            "Undo Stage Hunk",
-        },
+        u = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", "Undo Stage Hunk" },
         o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
         b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
         c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-        C = {
-            "<cmd>Telescope git_bcommits<cr>",
-            "Checkout commit(for current file)",
-        },
-        d = {
-            "<cmd>Gitsigns diffthis HEAD<cr>",
-            "Git Diff",
-        },
-        f = {"<cmd>Telescope buffers previewer=false<cr>", "Find"},
+        C = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
+        d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Git Diff" },
+        D = { "<cmd>Git diff<CR>", "Diff all" },
+        f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
     },
     h = {
         name = "Harpoon",

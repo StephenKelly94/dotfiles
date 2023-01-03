@@ -12,10 +12,10 @@ end
 local packer_bootstrap = ensure_packer()
 
 vim.cmd([[
-augroup packer_user_config
-autocmd!
-autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
-augroup end
+    augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
+    augroup end
 ]])
 
 local status, packer = pcall(require, "packer")
@@ -23,12 +23,15 @@ if not status then
     return
 end
 
-return require('packer').startup(function(use)
+return packer.startup(function(use)
     use('wbthomason/packer.nvim')
     -- My plugins here
     use('nvim-lua/plenary.nvim')
 
-    use('shaunsingh/nord.nvim') -- Colorscheme
+    -- Colorscheme
+    use('shaunsingh/nord.nvim')
+    use('folke/tokyonight.nvim')
+
     use('folke/which-key.nvim') -- Show Keymappings
     use('declancm/maximize.nvim') -- Focus current window
     use('tpope/vim-surround') -- Change surrounding quotes or brackets
