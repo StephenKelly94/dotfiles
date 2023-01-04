@@ -98,6 +98,7 @@ PATH=$PATH:$HOME/bin
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias zshconfig="nvim ~/.zshrc"
+alias tmux="tmux -2"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
