@@ -1,3 +1,21 @@
+local cmp_setup, cmp = pcall(require, "cmp")
+if not cmp_setup then
+    print("No cmp installed")
+    return
+end
+
+local lua_setup, luasnip = pcall(require, "luasnip")
+if not lua_setup then
+    print("No luasnip installed")
+    return
+end
+
+local lsp_kind_status, lspkind = pcall(require, "lspkind")
+if not lsp_kind_status then
+    print("No lsp_kind installed")
+    return
+end
+
 local function jumpable(dir)
     local win_get_cursor = vim.api.nvim_win_get_cursor
     local get_current_buf = vim.api.nvim_get_current_buf
@@ -84,26 +102,8 @@ local function jumpable(dir)
 end
 
 local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-end
-
-local cmp_setup, cmp = pcall(require, "cmp")
-if not cmp_setup then
-    print("No cmp installed")
-    return
-end
-
-local lua_setup, luasnip = pcall(require, "luasnip")
-if not lua_setup then
-    print("No luasnip installed")
-    return
-end
-
-local lsp_kind_status, lspkind = pcall(require, "lspkind")
-if not lsp_kind_status then
-    print("No lsp_kind installed")
-    return
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
 -- Load friendly snippets
@@ -174,10 +174,22 @@ cmp.setup({
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
     },
     formatting = {
-    format = lspkind.cmp_format({
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-    })
-  }
+        format = lspkind.cmp_format({
+            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            before = function(entry, vim_item)
+                -- Kind icons
+                vim_item.kind = string.format('%s %s', (lspkind.symbol_map[vim_item.kind] or ''), vim_item.kind) -- This concatonates the icons with the name of the vim_item kind
+                vim_item.menu = ({
+                    nvim_lsp = "[LSP]",
+                    luasnip = "[Snip]",
+                    nvim_lua = "[Nvim]",
+                    buffer = "[Buff]",
+                    path = "[Path]",
+                })[entry.source.name]
+                return vim_item
+            end,
+        })
+    }
 })
 
