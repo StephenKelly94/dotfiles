@@ -28,6 +28,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 end
 
 local capabilities = cmp_nvim_lsp.default_capabilities()

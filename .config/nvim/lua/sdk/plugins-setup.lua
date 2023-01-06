@@ -41,6 +41,7 @@ return packer.startup(function(use)
     use('lukas-reineke/indent-blankline.nvim') -- Show indentation guides
     use('mbbill/undotree')
     use('ThePrimeagen/harpoon')
+    use('ahmedkhalf/project.nvim')
 
     --Autocompletion
     use('hrsh7th/cmp-buffer')

@@ -25,6 +25,7 @@ alpha_theme.section.buttons.val = {
   alpha_theme.button("e", "  New File    ", ":enew<CR>"),
   alpha_theme.button("f", "  Find File   ", ":Telescope find_files<CR>"),
   alpha_theme.button("t", "  Find Text   ", ":Telescope live_grep<CR>"),
+  alpha_theme.button("p", "  Projects    ", ":Telescope projects<CR>"),
   alpha_theme.button("c", "  NVIM Config ", ":cd ~/.config/nvim | :e ~/.config/nvim/lua/sdk/plugins-setup.lua <CR>"),
   alpha_theme.button("q", "  Quit        ", ":qa<CR>"),
 }
