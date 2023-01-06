@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -o pipefail # fail on error and report it, debug all lines
 
-install_packages="zip unzip git curl alacritty neovim tmux zsh papirus-icon-theme ripgrep fd"
+install_packages="zip unzip git curl alacritty neovim tmux zsh papirus-icon-theme ripgrep fd xclip"
 
 # Detect package manager
 if [[ $(command -v apt-get) ]]; then
