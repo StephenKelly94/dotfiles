@@ -35,6 +35,7 @@ wk.register({
         end,
         "Close buffer"
     },
+    C = { ":cd ~/.config/nvim | :e ~/.config/nvim/lua/sdk/plugins-setup.lua <CR>" , "Nvim config"},
     e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
     f = {
         function()
@@ -136,6 +137,7 @@ wk.register({
         },
         r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
         R = { "<cmd>Telescope registers<cr>", "Registers" },
+        s = { "<cmd>Telescope git_stash<cr>", "Stash" },
         t = { "<cmd>Telescope live_grep<cr>", "Text" },
     },
     T = {

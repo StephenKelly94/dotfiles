@@ -3,4 +3,8 @@ if not setup then
     print("No gitsigns installed")
     return
 end
-gitsigns.setup()
+gitsigns.setup({
+    signs = {
+        add = { hl = 'GitSignsAdd', text = '+', numhl='GitSignsAddNr', linehl='GitSignsAddLn' }
+    }
+})
