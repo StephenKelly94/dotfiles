@@ -42,3 +42,4 @@ opt.listchars:append "space:⋅"
 opt.listchars:append "eol:↴"
 
 opt.undofile = true
+opt.clipboard = "unnamedplus"
