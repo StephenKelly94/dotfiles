@@ -10,7 +10,11 @@ vim.api.nvim_create_autocmd("Colorscheme", {
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = myGroup,
     pattern = { "*" },
-    command = [[%s/\s\+$//e]],
+    callback = function ()
+        if vim.bo.filetype ~= "markdown" then
+            vim.cmd([[%s/\s\+$//e]])
+        end
+    end,
 })
 
 -- highlight yanked text for 200ms using the "Visual" highlight group

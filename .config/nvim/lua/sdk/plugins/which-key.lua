@@ -125,6 +125,7 @@ wk.register({
         c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         f = { "<cmd>Telescope find_files<cr>", "Find File" },
+        F = { "<cmd>NvimTreeFindFile<cr>", "Open File in Tree" },
         h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
         H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
