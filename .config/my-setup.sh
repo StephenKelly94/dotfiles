@@ -1,27 +1,38 @@
 #!/bin/bash
 set -e -o pipefail # fail on error and report it, debug all lines
 
+
 clipboard="xclip"
 if [[ -n $WAYLAND_DISPLAY ]]; then
     clipboard="wl-clipboard"
 fi
 
-install_packages="zip unzip git curl alacritty neovim tmux zsh papirus-icon-theme ripgrep fd $clipboard"
+base_packages="zip unzip git curl kitty neovim tmux zsh papirus-icon-theme ripgrep fd $clipboard"
+
+debian_packages="$base_packages fonts_firacode"
+arch_packages="$base_packages ttf-fira-code"
+fedora_packages="$base_packages fira-code-fonts"
 
 # Detect package manager
+echo "Installing the must-have pre-requisites"
+
 if [[ $(command -v apt-get) ]]; then
-    echo "Detected apt-get"
-    echo "Adding and updating repos"
+    echo "Detected debian"
+
+    echo "Adding and updating repos first"
+    sudo add-apt-repository universe
     sudo add-apt-repository ppa:aslatter/ppa -y
     sudo add-apt-repository ppa:neovim-ppa/unstable -y
     sudo add-apt-repository ppa:papirus/papirus -y
     sudo apt-get update
 
-    echo "Installing the must-have pre-requisites"
-    sudo apt-get install -y $install_packages
+    sudo apt-get install -y $debian_packages
+elif [[ $(command -v dnf) ]]; then
+    echo "Detected Fedora"
+    sudo dnf install $fedora_packages
 elif [[ $(command -v pacman) ]]; then
-    echo "Installing the must-have pre-requisites"
-    sudo pacman -Syu $install_packages
+    echo "Detected Arch"
+    sudo pacman -Syu $arch_packages
 fi
 
 echo "Installing NVM, remember to install node"
