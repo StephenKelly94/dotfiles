@@ -1,10 +1,10 @@
 local myGroup = vim.api.nvim_create_augroup('MyGroup', {clear = true})
 
--- Set transparent background
-vim.api.nvim_create_autocmd("Colorscheme", {
-    group = myGroup,
-    command = "autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE",
-})
+-- -- Set transparent background
+-- vim.api.nvim_create_autocmd("Colorscheme", {
+--     group = myGroup,
+--     command = "autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE",
+-- })
 
 -- Trim whitespace
 vim.api.nvim_create_autocmd("BufWritePre", {

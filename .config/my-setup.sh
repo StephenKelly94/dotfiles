@@ -1,7 +1,12 @@
 #!/bin/bash
 set -e -o pipefail # fail on error and report it, debug all lines
 
-install_packages="zip unzip git curl alacritty neovim tmux zsh papirus-icon-theme ripgrep fd xclip"
+clipboard="xclip"
+if [[ -n $WAYLAND_DISPLAY ]]; then
+    clipboard="wl-clipboard"
+fi
+
+install_packages="zip unzip git curl alacritty neovim tmux zsh papirus-icon-theme ripgrep fd $clipboard"
 
 # Detect package manager
 if [[ $(command -v apt-get) ]]; then
@@ -30,10 +35,10 @@ else
 fi
 ZSH_CUSTOM=${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}
 
-sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || true
-sudo git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting || true
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || true
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting || true
 
-sudo git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 
 chsh -s $(which zsh)
 
