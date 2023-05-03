@@ -60,6 +60,7 @@ return packer.startup(function(use)
     use("neovim/nvim-lspconfig")
     use('hrsh7th/cmp-nvim-lsp')
     use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
+    use('nvim-treesitter/nvim-treesitter-context')
 
     -- Bufferline
     use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
