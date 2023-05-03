@@ -7,11 +7,11 @@ if [[ -n $WAYLAND_DISPLAY ]]; then
     clipboard="wl-clipboard"
 fi
 
-base_packages="zip unzip git curl kitty neovim tmux zsh papirus-icon-theme ripgrep fd $clipboard"
+base_packages="zip unzip git curl neovim tmux zsh papirus-icon-theme ripgrep $clipboard"
 
-debian_packages="$base_packages fonts_firacode"
-arch_packages="$base_packages ttf-fira-code"
-fedora_packages="$base_packages fira-code-fonts"
+debian_packages="$base_packages fd-find fonts-firacode"
+arch_packages="$base_packages fd ttf-fira-code"
+fedora_packages="$base_packages fd-find fira-code-fonts"
 
 # Detect package manager
 echo "Installing the must-have pre-requisites"
@@ -20,11 +20,11 @@ if [[ $(command -v apt-get) ]]; then
     echo "Detected debian"
 
     echo "Adding and updating repos first"
-    sudo add-apt-repository universe
-    sudo add-apt-repository ppa:aslatter/ppa -y
-    sudo add-apt-repository ppa:neovim-ppa/unstable -y
-    sudo add-apt-repository ppa:papirus/papirus -y
-    sudo apt-get update
+    sudo add-apt-repository universe -y > /dev/null
+    sudo add-apt-repository ppa:aslatter/ppa -y > /dev/null
+    sudo add-apt-repository ppa:neovim-ppa/unstable -y > /dev/null
+    sudo add-apt-repository ppa:papirus/papirus -y > /dev/null
+    sudo apt-get update > /dev/null
 
     sudo apt-get install -y $debian_packages
 elif [[ $(command -v dnf) ]]; then
@@ -35,6 +35,9 @@ elif [[ $(command -v pacman) ]]; then
     sudo pacman -Syu $arch_packages
 fi
 
+echo "Install kitty"
+sh -c "$(curl -L https://sw.kovidgoyal.net/kitty/installer.sh)"
+
 echo "Installing NVM, remember to install node"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -44,6 +47,7 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
 else
     echo "Already installed"
 fi
+
 ZSH_CUSTOM=${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}
 
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || true

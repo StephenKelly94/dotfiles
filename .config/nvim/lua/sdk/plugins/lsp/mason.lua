@@ -24,6 +24,5 @@ mason_lspconfig.setup({
         "cssls",
         "lua_ls",
         "bashls",
-        "gopls",
     }
 })

@@ -97,7 +97,7 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='nvim'
 
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 # Used to load pc specific aliases
 [ -f $HOME/.aliases ] && source $HOME/.aliases.sh
