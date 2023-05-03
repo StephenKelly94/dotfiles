@@ -17,6 +17,24 @@ if not mason_lsp_status then
 end
 
 require('lspconfig.ui.windows').default_options.border = 'single'
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+local border = {
+      {"🭽", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {"🭾", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {"🭼", "FloatBorder"},
+      {"▏", "FloatBorder"},
+}-- LSP settings (for overriding per client)
+
+local handlers =  {
+  ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
+  ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+}
 
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
@@ -39,6 +57,7 @@ mason_lsp.setup_handlers({
     -- a dedicated handler.
     function (server_name)
         lspconfig[server_name].setup({
+            handlers=handlers,
             capabilities = capabilities,
             on_attach = on_attach,
         })

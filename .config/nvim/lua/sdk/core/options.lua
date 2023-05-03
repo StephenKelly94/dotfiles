@@ -43,3 +43,6 @@ opt.listchars:append "eol:↴"
 
 opt.undofile = true
 opt.clipboard = "unnamedplus"
+
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
