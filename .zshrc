@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="amuse"
+ZSH_THEME="mine"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -100,7 +100,7 @@ export EDITOR='nvim'
 PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 # Used to load pc specific aliases
-[ -f $HOME/.aliases ] && source $HOME/.aliases.sh
+[ -f $HOME/.aliases ] && source $HOME/.aliases
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias zshconfig="$EDITOR ~/.zshrc"
