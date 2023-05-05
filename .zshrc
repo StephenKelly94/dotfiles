@@ -83,6 +83,9 @@ plugins=(
     wd
 )
 
+ZSH_TMUX_FIXTERM=true
+ZSH_TMUX_AUTOSTART=true
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -105,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias zshconfig="$EDITOR ~/.zshrc"
-alias tmux="tmux -2"
+# alias tmux="tmux -2"
 alias weather="curl 'wttr.in/copenhagen?m'"
 
 

@@ -7,14 +7,5 @@ end
 lualine.setup({
     options = {
         theme = "tokyonight",
-    },
-    sections = {
-        lualine_b = {
-            {
-                'diagnostics',
-                symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
-            }
-        }
     }
-
 })

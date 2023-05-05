@@ -54,6 +54,7 @@ ZSH_CUSTOM=${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || true
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting || true
 
+mkdir -p ~/.tmux/plugins/
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm || true
 
 chsh -s $(which zsh)
