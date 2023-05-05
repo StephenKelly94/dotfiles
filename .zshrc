@@ -71,11 +71,16 @@ ZSH_CUSTOM=$HOME/.config/zsh-custom/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    tmux
-    wd
+    # Should be installed locally
     zsh-autosuggestions
     fast-syntax-highlighting
+
+    git
+    node
+    nvm
+    systemadmin
+    tmux
+    wd
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -95,10 +100,6 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-export EDITOR='nvim'
-
-PATH=$PATH:$HOME/bin:$HOME/.local/bin
-
 # Used to load pc specific aliases
 [ -f $HOME/.aliases ] && source $HOME/.aliases
 
@@ -112,4 +113,3 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
