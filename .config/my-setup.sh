@@ -7,7 +7,7 @@ if [[ -n $WAYLAND_DISPLAY ]]; then
     clipboard="wl-clipboard"
 fi
 
-base_packages="zip unzip git curl neovim tmux zsh papirus-icon-theme ripgrep $clipboard"
+base_packages="zip unzip git curl neovim tmux zsh papirus-icon-theme ripgrep alacritty $clipboard"
 
 debian_packages="$base_packages fd-find fonts-firacode"
 arch_packages="$base_packages fd ttf-fira-code"
@@ -35,8 +35,8 @@ elif [[ $(command -v pacman) ]]; then
     sudo pacman -Syu $arch_packages
 fi
 
-echo "Install kitty"
-sh -c "$(curl -sL https://sw.kovidgoyal.net/kitty/installer.sh >/dev/null)"
+# echo "Install kitty"
+# sh -c "$(curl -sL https://sw.kovidgoyal.net/kitty/installer.sh >/dev/null)"
 
 echo "Installing NVM, remember to install node"
 sh -c "$(curl -so- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh > /dev/null)"
