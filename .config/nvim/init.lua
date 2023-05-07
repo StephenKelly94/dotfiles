@@ -1,11 +1,5 @@
 require("sdk.plugins-setup")
 
-require("sdk.core.autocmd")
-require("sdk.core.colorscheme")
-require("sdk.core.functions")
-require("sdk.core.keymaps")
-require("sdk.core.options")
-
 require("sdk.plugins.alpha")
 require("sdk.plugins.bufferline")
 require("sdk.plugins.comment")
@@ -20,4 +14,11 @@ require("sdk.plugins.nvim-tree")
 require("sdk.plugins.project")
 require("sdk.plugins.telescope")
 require("sdk.plugins.treesitter")
+require("sdk.plugins.tokyonight")
 require("sdk.plugins.which-key")
+
+require("sdk.core.autocmd")
+require("sdk.core.colorscheme")
+require("sdk.core.functions")
+require("sdk.core.keymaps")
+require("sdk.core.options")

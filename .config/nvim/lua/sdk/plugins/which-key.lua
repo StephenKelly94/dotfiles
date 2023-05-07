@@ -63,15 +63,6 @@ wk.register({
         D = { "<cmd>Git diff<CR>", "Diff all" },
         f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
     },
-    h = {
-        name = "Harpoon",
-        a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Add mark"},
-        t = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Toggle list"},
-        q = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "Mark 1"},
-        w = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "Mark 2"},
-        e = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "Mark 3"},
-        r = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "Mark 4"},
-    },
     H = {"<cmd>nohl<CR>", "Remove highlight"},
     l = {
         name = "LSP",

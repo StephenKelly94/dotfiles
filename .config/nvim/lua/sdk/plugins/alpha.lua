@@ -4,7 +4,7 @@ if not setup then
     return
 end
 
-local setup, alpha_theme = pcall(require, "alpha.themes.dashboard")
+local _, alpha_theme = pcall(require, "alpha.themes.dashboard")
 if not setup then
     print("No alpha_theme installed")
     return

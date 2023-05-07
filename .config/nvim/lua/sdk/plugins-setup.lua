@@ -40,7 +40,6 @@ return packer.startup(function(use)
     use('RRethy/vim-illuminate') -- Highlight similar text
     use('lukas-reineke/indent-blankline.nvim') -- Show indentation guides
     use('mbbill/undotree')
-    use('ThePrimeagen/harpoon')
     use('ahmedkhalf/project.nvim')
 
     --Autocompletion
