@@ -108,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 [ -f $HOME/.aliases ] && source $HOME/.aliases
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias lg="lazygit"
 alias zshconfig="$EDITOR ~/.zshrc"
 # alias tmux="tmux -2"
 alias weather="curl 'wttr.in/copenhagen?m'"

@@ -1,10 +1,15 @@
-local setup, bufferline = pcall(require, "bufferline")
+local _, bufferline = pcall(require, "bufferline")
 if not bufferline then
     print("No comment installed")
     return
 end
 
 local functions = require("sdk.core.functions")
+
+local diagnostics_indicator = function(count, level, _, _)
+  local icon = level:match("error") and " " or " "
+  return " " .. icon .. count
+end
 
 bufferline.setup({
     highlights = {
@@ -19,8 +24,8 @@ bufferline.setup({
         },
     },
     options = {
-        mode = "buffers", 
-        numbers = "buffer_id", 
+        mode = "buffers",
+        numbers = "buffer_id",
         close_command = function(bufnr) -- can be a string | function, see "Mouse actions"
             functions.buf_kill("bd", bufnr, false)
         end,
@@ -40,8 +45,6 @@ bufferline.setup({
         diagnostics = "nvim_lsp",
         diagnostics_update_in_insert = false,
         diagnostics_indicator = diagnostics_indicator,
-        -- NOTE: this will be called a lot so don't do any heavy processing here
-        custom_filter = custom_filter,
         offsets = {
             {
                 filetype = "undotree",
