@@ -106,9 +106,12 @@ source $ZSH/oh-my-zsh.sh
 
 # Used to load pc specific aliases
 [ -f $HOME/.aliases ] && source $HOME/.aliases
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias lg="lazygit"
+alias fd="fdfind"
 alias zshconfig="$EDITOR ~/.zshrc"
 # alias tmux="tmux -2"
 alias weather="curl 'wttr.in/copenhagen?m'"
@@ -118,3 +121,4 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval $(thefuck --alias)

@@ -7,7 +7,11 @@ if [[ -n $WAYLAND_DISPLAY ]]; then
     clipboard="wl-clipboard"
 fi
 
-base_packages="zip unzip git curl neovim tmux zsh papirus-icon-theme ripgrep alacritty $clipboard"
+# Remember packages: (not installed with this)
+# Delta
+# lazygit
+
+base_packages="zip unzip git curl neovim tmux zsh ripgrep $clipboard"
 
 debian_packages="$base_packages fd-find fonts-firacode"
 arch_packages="$base_packages fd ttf-fira-code"
@@ -35,21 +39,21 @@ elif [[ $(command -v pacman) ]]; then
     sudo pacman -Syu $arch_packages
 fi
 
-# echo "Install kitty"
-# sh -c "$(curl -sL https://sw.kovidgoyal.net/kitty/installer.sh >/dev/null)"
+echo "Install kitty"
+sh -c "$(curl -sL https://sw.kovidgoyal.net/kitty/installer.sh >/dev/null)"
 
 echo "Installing NVM, remember to install node"
-sh -c "$(curl -so- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh > /dev/null)"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash >/dev/null
 
 echo "Installing oh my zsh and plugins"
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo ""
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh > /dev/null)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh >/dev/null)"
 else
     echo "Already installed"
 fi
 
-ZSH_CUSTOM=${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}
+ZSH_CUSTOM=$HOME/.config/zsh-custom/
 
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || true
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting || true
