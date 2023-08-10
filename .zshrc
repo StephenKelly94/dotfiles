@@ -84,8 +84,6 @@ plugins=(
 )
 
 ZSH_TMUX_FIXTERM=true
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOQUIT=false
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,6 +114,9 @@ alias zshconfig="$EDITOR ~/.zshrc"
 # alias tmux="tmux -2"
 alias weather="curl 'wttr.in/copenhagen?m'"
 
+[ "$TERM" = "xterm-kitty" ] && alias s="kitty +kitten ssh"
+[ "$TERM" = "xterm-kitty" ] && alias d="kitty +kitten diff"
+[ "$TERM" = "xterm-kitty" ] && alias icat="kitty +kitten icat"
 
 export NVM_DIR="$HOME/.nvm"
 
