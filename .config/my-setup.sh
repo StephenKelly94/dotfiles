@@ -11,7 +11,7 @@ fi
 # Delta
 # lazygit
 
-base_packages="zip unzip git curl neovim tmux zsh ripgrep $clipboard"
+base_packages="zip unzip git curl neovim tmux zsh ripgrep fzf $clipboard"
 
 debian_packages="$base_packages fd-find fonts-firacode"
 arch_packages="$base_packages fd ttf-fira-code"
@@ -53,7 +53,7 @@ else
     echo "Already installed"
 fi
 
-ZSH_CUSTOM=$HOME/.config/zsh-custom/
+ZSH_CUSTOM=$HOME/.config/zsh-custom
 
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || true
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting || true
