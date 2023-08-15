@@ -81,6 +81,7 @@ plugins=(
     systemadmin
     tmux
     wd
+    asdf
 )
 
 ZSH_TMUX_FIXTERM=true
@@ -104,6 +105,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Used to load pc specific aliases
 [ -f $HOME/.aliases ] && source $HOME/.aliases
+[ -f $HOME/.asdf ] && source "$HOME/.asdf/asdf.sh"
+
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 

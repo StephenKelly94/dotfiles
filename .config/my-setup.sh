@@ -40,7 +40,7 @@ elif [[ $(command -v pacman) ]]; then
 fi
 
 echo "Install kitty"
-sh -c "$(curl -sL https://sw.kovidgoyal.net/kitty/installer.sh >/dev/null)"
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 
 echo "Installing NVM, remember to install node"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash >/dev/null
@@ -48,7 +48,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash 
 echo "Installing oh my zsh and plugins"
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo ""
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh >/dev/null)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null
 else
     echo "Already installed"
 fi
