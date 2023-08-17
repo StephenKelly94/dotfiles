@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e -o pipefail # fail on error and report it, debug all lines
 
-
 clipboard="xclip"
 if [[ -n $WAYLAND_DISPLAY ]]; then
     clipboard="wl-clipboard"
@@ -24,11 +23,11 @@ if [[ $(command -v apt-get) ]]; then
     echo "Detected debian"
 
     echo "Adding and updating repos first"
-    sudo add-apt-repository universe -y > /dev/null
-    sudo add-apt-repository ppa:aslatter/ppa -y > /dev/null
-    sudo add-apt-repository ppa:neovim-ppa/unstable -y > /dev/null
-    sudo add-apt-repository ppa:papirus/papirus -y > /dev/null
-    sudo apt-get update > /dev/null
+    sudo add-apt-repository universe -y >/dev/null
+    sudo add-apt-repository ppa:aslatter/ppa -y >/dev/null
+    sudo add-apt-repository ppa:neovim-ppa/unstable -y >/dev/null
+    sudo add-apt-repository ppa:papirus/papirus -y >/dev/null
+    sudo apt-get update >/dev/null
 
     sudo apt-get install -y $debian_packages
 elif [[ $(command -v dnf) ]]; then

@@ -1,5 +1,7 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 local opt = vim.opt
-vim.g.mapleader = " "
 
 -- Line numbers
 opt.relativenumber = true
@@ -25,6 +27,7 @@ opt.cursorline = true
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
+opt.colorcolumn = "80"
 
 -- Backspace
 opt.backspace = "indent,eol,start"
@@ -33,13 +36,11 @@ opt.backspace = "indent,eol,start"
 opt.splitright = true
 opt.splitbelow = true
 
-opt.iskeyword:append("-")
-
 opt.scrolloff = 8
 
 opt.list = true
-opt.listchars:append "space:⋅"
-opt.listchars:append "eol:↴"
+opt.listchars:append("space:⋅")
+opt.listchars:append("eol:↴")
 
 opt.undofile = true
 opt.clipboard = "unnamedplus"
