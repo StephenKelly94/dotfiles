@@ -104,25 +104,16 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Used to load pc specific aliases
-[ -f $HOME/.aliases ] && source $HOME/.aliases
+[ -f $HOME/.aliases.sh ] && source $HOME/.aliases.sh
+[ -f $HOME/.work-aliases.sh ] && source $HOME/.work-aliases.sh
+
 [ -f $HOME/.asdf ] && source "$HOME/.asdf/asdf.sh"
 
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-alias lg="lazygit"
-alias fd="fdfind"
-alias zshconfig="$EDITOR ~/.zshrc"
-# alias tmux="tmux -2"
-alias weather="curl 'wttr.in/copenhagen?m'"
-
-[ "$TERM" = "xterm-kitty" ] && alias s="kitty +kitten ssh"
-[ "$TERM" = "xterm-kitty" ] && alias d="kitty +kitten diff"
-[ "$TERM" = "xterm-kitty" ] && alias icat="kitty +kitten icat"
-
 export NVM_DIR="$HOME/.nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-[ -x "$(command -v thefuck)" ] && eval $(thefuck --alias)
+[ $(command -v thefuck) ] && eval $(thefuck --alias)
