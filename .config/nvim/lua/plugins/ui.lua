@@ -1,5 +1,13 @@
 return {
     {
+        "folke/which-key.nvim",
+        opts = {
+            defaults = {
+                ["<leader>gd"] = { "<cmd>Gvdiff<cr>", "Diff current file" },
+            },
+        },
+    },
+    {
         "goolord/alpha-nvim",
         opts = function(_, opts)
             local logo = {

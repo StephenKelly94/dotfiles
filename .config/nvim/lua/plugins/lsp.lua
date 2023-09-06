@@ -1,9 +1,9 @@
 return {
-        -- Disable autoformat, was causing issues on large files
+    -- Disable autoformat, was causing issues on large files
     {
         "neovim/nvim-lspconfig",
         opts = {
-            autoformat = true,
+            autoformat = false,
         },
     },
 }

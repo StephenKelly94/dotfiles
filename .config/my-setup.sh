@@ -39,20 +39,20 @@ elif [ $(command -v pacman) ]; then
     sudo pacman -Syu $arch_packages
 fi
 
-if [ ! -d "$HOME/.local/kitty.app" ]; then
-    echo "Install kitty"
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-else
-    echo "Kitty already installed"
-fi
+# if [ ! -d "$HOME/.local/kitty.app" ]; then
+#     echo "Install kitty"
+#     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+# else
+#     echo "Kitty already installed"
+# fi
 
-if [ ! -d "$HOME/.nvm" ]; then
-    echo "Installing NVM, remember to install node"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash >/dev/null
-else
-    echo "NVM already installed"
-fi
-
+# if [ ! -d "$HOME/.nvm" ]; then
+#     echo "Installing NVM, remember to install node"
+#     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash >/dev/null
+# else
+#     echo "NVM already installed"
+# fi
+#
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     echo "Installing oh my zsh and plugins"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null
@@ -65,11 +65,20 @@ else
 fi
 
 if [ ! -f "$HOME/.tmux.conf" ]; then
+    echo "Installing tmux"
     mkdir -p ~/.tmux/plugins/
     git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm || true
 else
     echo "TMUX already installed"
 fi
+
+if [ ! -f "/usr/bin/local/starship" ]; then
+    echo "Installing starship"
+    curl -sS https://starship.rs/install.sh | sh -s -- -f >/dev/null
+else
+    echo "Starship already installed"
+fi
+
 
 if [ "$SHELL_CHANGED" = "true" ]; then
     chsh -s $(which zsh)
