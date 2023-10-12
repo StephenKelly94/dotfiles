@@ -29,6 +29,7 @@ local keymap = vim.keymap
 
 -- Paste and keep registervim.keymap.set("n", "J", "mzJ`z")
 keymap.set("v", "<leader>p", '"_dp', { noremap = true })
+
 keymap.set("n", "<leader>gf", function()
     vim.cmd([[!git log -1 --format="medium" -- %]])
-end, { desc = "Git file info" })
+end, { desc = "Git last commit info" })

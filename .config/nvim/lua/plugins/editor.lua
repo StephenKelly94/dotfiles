@@ -52,30 +52,6 @@ return {
             },
         },
     },
-    {
-        "telescope.nvim",
-        opts = function(_, opts)
-            opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-                mappings = {
-                    i = {
-                        ["<M-q>"] = require("trouble.providers.telescope").open_selected_with_trouble,
-                        ["<C-q>"] = require("trouble.providers.telescope").open_with_trouble,
-                    },
-                    n = {
-                        ["<M-q>"] = require("trouble.providers.telescope").open_selected_with_trouble,
-                        ["<C-q>"] = require("trouble.providers.telescope").open_with_trouble,
-                    },
-                },
-            })
-        end,
-        dependencies = {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            build = "make",
-            config = function()
-                require("telescope").load_extension("fzf")
-            end,
-        },
-    },
     -- Disable flash on search
     {
         "folke/flash.nvim",

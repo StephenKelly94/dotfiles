@@ -13,3 +13,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         end
     end,
 })
+
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--     group = myGroup,
+--     pattern = "*",
+--     callback = function()
+--         vim.cmd 'hi Normal guibg=NONE ctermbg=NONE'
+--     end,
+-- })

@@ -1,18 +1,17 @@
 return {
     {
-        "rebelot/kanagawa.nvim",
-        lazy = true,
+        'projekt0n/github-nvim-theme'
+    },
+    {
+        "navarasu/onedark.nvim",
         opts = {
-            background = {
-                dark = "dragon",
-                light = "lotus",
-            },
-        },
+            style = "dark",
+        }
     },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "tokyonight-moon",
+            colorscheme = "github_dark",
         },
     },
 }

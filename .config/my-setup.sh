@@ -11,11 +11,11 @@ fi
 # Delta
 # lazygit
 
-base_packages="zip unzip git curl neovim tmux zsh ripgrep fzf exa alacritty $clipboard"
+base_packages="zip unzip git curl neovim tmux zsh ripgrep fzf  alacritty $clipboard"
 
-debian_packages="$base_packages fd-find fonts-firacode"
-arch_packages="$base_packages fd ttf-fira-code"
-fedora_packages="$base_packages util-linux-user fd-find fira-code-fonts"
+debian_packages="$base_packages fd-find"
+arch_packages="$base_packages fd"
+fedora_packages="$base_packages util-linux-user fd-find"
 
 # Detect package manager
 echo "Installing the must-have pre-requisites"

@@ -1,4 +1,12 @@
 return {
+    -- {
+    --     "folke/noice.nvim",
+    --     opts = {
+    --         cmdline = {
+    --             view = "cmdline",
+    --         },
+    --     },
+    -- },
     {
         "folke/which-key.nvim",
         opts = {
