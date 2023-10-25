@@ -41,7 +41,7 @@ opt.splitbelow = true
 opt.scrolloff = 8
 
 opt.list = true
-opt.listchars:append("space:⋅")
+-- opt.listchars:append("space:⋅")
 opt.listchars:append("eol:↴")
 
 opt.undofile = true
