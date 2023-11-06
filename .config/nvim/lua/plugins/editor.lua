@@ -1,5 +1,8 @@
 return {
     {
+        dir = "/home/sdk/dev/OneCommand.nvim/",
+    },
+    {
         "tpope/vim-fugitive",
     },
     {
