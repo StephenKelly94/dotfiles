@@ -16,7 +16,7 @@ end
 config.default_prog = { '/usr/bin/zsh' }
 config.use_dead_keys = false
 config.enable_scroll_bar= true
--- config.disable_default_key_bindings = true
+config.disable_default_key_bindings = true
 -- config.unix_domains = {
 --     {
 --         name = 'unix',
@@ -36,6 +36,12 @@ config.font = wezterm.font {
     -- https://github.com/tonsky/FiraCode/wiki/How-to-enable-stylistic-sets
     harfbuzz_features = { 'zero', 'cv14', 'ss03', 'ss08' }
 }
+
+config.inactive_pane_hsb = {
+    saturation = 0.7,
+    brightness = 0.7,
+}
+
 config.font_size = 10.0
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
@@ -57,11 +63,12 @@ wezterm.on('update-right-status', function(window, _)
     local key_table = name or "Default"
 
     local leader_pressed_color = window:leader_is_active() and "Yellow" or "Green"
+    local non_default_key_color = key_table ~= "Default" and "Yellow" or "Blue"
 
     local right_status = wezterm.format {
         'ResetAttributes',
         { Foreground = { AnsiColor = 'Black' } },
-        { Background = { AnsiColor = 'Blue' } },
+        { Background = { AnsiColor = non_default_key_color } },
         { Text = "  Mode: " .. key_table .. "  "},
     }
     local left_status = wezterm.format {
@@ -74,7 +81,7 @@ wezterm.on('update-right-status', function(window, _)
 end)
 
 -- KEYS
-config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 5000 }
 config.keys = {
     -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
     {
@@ -82,13 +89,21 @@ config.keys = {
         mods = 'LEADER|CTRL',
         action = act.SendKey { key = 'a', mods = 'CTRL' },
     },
+    -- DEFUALT
+    { key = 'C', mods = 'CTRL', action = act.CopyTo 'Clipboard' },
+    { key = 'V', mods = 'CTRL', action = act.PasteFrom 'Clipboard' },
+    { key = 'Enter', mods = 'SHIFT|CTRL', action = act.ToggleFullScreen },
+    { key = 'P', mods = 'CTRL', action = wezterm.action.ActivateCommandPalette },
     -- MOVEMENT
     { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
     { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection 'Down' },
     { key = 'k', mods = 'LEADER', action = act.ActivatePaneDirection 'Up'   },
     { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection 'Right' },
-    { key = 'n', mods = 'LEADER', action = act.ActivateTabRelative(-1) },
-    { key = 'p', mods = 'LEADER', action = act.ActivateTabRelative(1) },
+    { key = 'p', mods = 'LEADER', action = act.ActivateTabRelative(-1) },
+    { key = 'n', mods = 'LEADER', action = act.ActivateTabRelative(1) },
+    { key = 'z', mods = 'LEADER', action = act.TogglePaneZoomState },
+    { key = 'f', mods = 'LEADER', action = act.Search { CaseInSensitiveString = "" } },
+    { key = 'F', mods = 'LEADER', action = act.QuickSelect },
     -- PANE/SPLIT
     {
         key = 'x',
@@ -102,7 +117,7 @@ config.keys = {
     },
     {
         key = 's',
-        mods = 'LEADER|SHIFT',
+        mods = 'LEADER',
         action = act.SplitPane { direction = 'Down' },
     },
     {
@@ -167,6 +182,7 @@ config.keys = {
             one_shot = false,
         },
     },
+    { key = 'PageUp', mods = 'LEADER', action = act.ActivateCopyMode },
 }
 
 for i = 1, 8 do
@@ -186,6 +202,10 @@ config.key_tables = {
     -- 'resize_pane' here corresponds to the name="resize_pane" in
     -- the key assignments above.
     resize_pane = {
+        -- Cancel the mode by pressing escape or enter
+        { key = 'Escape', action = 'PopKeyTable' },
+        { key = 'Enter', action = 'PopKeyTable' },
+
         { key = 'LeftArrow', action = act.AdjustPaneSize { 'Left', 1 } },
         { key = 'h', action = act.AdjustPaneSize { 'Left', 1 } },
 
@@ -197,10 +217,141 @@ config.key_tables = {
 
         { key = 'DownArrow', action = act.AdjustPaneSize { 'Down', 1 } },
         { key = 'j', action = act.AdjustPaneSize { 'Down', 1 } },
-
-        -- Cancel the mode by pressing escape or enter
-        { key = 'Escape', action = 'PopKeyTable' },
-        { key = 'Enter', action = 'PopKeyTable' },
+    },
+    search_mode = {
+        { key = "Escape", mods = "NONE", action = act.CopyMode 'Close' },
+        -- Go back to copy mode when pressing enter, so that we can use unmodified keys like "n"
+        -- to navigate search results without conflicting with typing into the search area.
+        { key = "Enter", mods = "NONE", action = "ActivateCopyMode" },
+    },
+    copy_mode = {
+        { key = 'Escape', mods = 'NONE', action = act.CopyMode 'Close' },
+        {
+            key = 'Space',
+            mods = 'NONE',
+            action = act.CopyMode { SetSelectionMode = 'Cell' },
+        },
+        {
+            key = '$',
+            mods = 'NONE',
+            action = act.CopyMode 'MoveToEndOfLineContent',
+        },
+        {
+            key = '$',
+            mods = 'SHIFT',
+            action = act.CopyMode 'MoveToEndOfLineContent',
+        },
+        { key = ',', mods = 'NONE', action = act.CopyMode 'JumpReverse' },
+        { key = '0', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine' },
+        { key = ';', mods = 'NONE', action = act.CopyMode 'JumpAgain' },
+        {
+            key = 'F',
+            mods = 'SHIFT',
+            action = act.CopyMode { JumpBackward = { prev_char = false } },
+        },
+        {
+            key = 'G',
+            mods = 'SHIFT',
+            action = act.CopyMode 'MoveToScrollbackBottom',
+        },
+        {
+            key = 'M',
+            mods = 'SHIFT',
+            action = act.CopyMode 'MoveToViewportMiddle',
+        },
+        {
+            key = 'O',
+            mods = 'SHIFT',
+            action = act.CopyMode 'MoveToSelectionOtherEndHoriz',
+        },
+        {
+            key = 'T',
+            mods = 'SHIFT',
+            action = act.CopyMode { JumpBackward = { prev_char = true } },
+        },
+        {
+            key = 'V',
+            mods = 'NONE',
+            action = act.CopyMode { SetSelectionMode = 'Line' },
+        },
+        {
+            key = 'V',
+            mods = 'SHIFT',
+            action = act.CopyMode { SetSelectionMode = 'Line' },
+        },
+        {
+            key = '^',
+            mods = 'NONE',
+            action = act.CopyMode 'MoveToStartOfLineContent',
+        },
+        { key = 'b', mods = 'NONE', action = act.CopyMode 'MoveBackwardWord' },
+        { key = 'c', mods = 'CTRL', action = act.CopyMode 'Close' },
+        {
+            key = 'd',
+            mods = 'CTRL',
+            action = act.CopyMode { MoveByPage = 0.5 },
+        },
+        {
+            key = 'e',
+            mods = 'NONE',
+            action = act.CopyMode 'MoveForwardWordEnd',
+        },
+        {
+            key = 'f',
+            mods = 'NONE',
+            action = act.CopyMode { JumpForward = { prev_char = false } },
+        },
+        {
+            key = 'g',
+            mods = 'NONE',
+            action = act.CopyMode 'MoveToScrollbackTop',
+        },
+        { key = 'h', mods = 'NONE', action = act.CopyMode 'MoveLeft' },
+        { key = 'j', mods = 'NONE', action = act.CopyMode 'MoveDown' },
+        { key = 'k', mods = 'NONE', action = act.CopyMode 'MoveUp' },
+        { key = 'l', mods = 'NONE', action = act.CopyMode 'MoveRight' },
+        {
+            key = 'o',
+            mods = 'NONE',
+            action = act.CopyMode 'MoveToSelectionOtherEnd',
+        },
+        { key = 'q', mods = 'NONE', action = act.CopyMode 'Close' },
+        {
+            key = 't',
+            mods = 'NONE',
+            action = act.CopyMode { JumpForward = { prev_char = true } },
+        },
+        {
+            key = 'u',
+            mods = 'CTRL',
+            action = act.CopyMode { MoveByPage = -0.5 },
+        },
+        {
+            key = 'v',
+            mods = 'NONE',
+            action = act.CopyMode { SetSelectionMode = 'Cell' },
+        },
+        {
+            key = 'v',
+            mods = 'CTRL',
+            action = act.CopyMode { SetSelectionMode = 'Block' },
+        },
+        { key = 'w', mods = 'NONE', action = act.CopyMode 'MoveForwardWord' },
+        {
+            key = 'y',
+            mods = 'NONE',
+            action = act.Multiple {
+                { CopyTo = 'ClipboardAndPrimarySelection' },
+                { CopyMode = 'Close' },
+            },
+        },
+        { key = 'PageUp', mods = 'NONE', action = act.CopyMode 'PageUp' },
+        { key = 'PageDown', mods = 'NONE', action = act.CopyMode 'PageDown' },
+        { key = 'End', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent', },
+        { key = 'Home', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine', },
+        { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'MoveUp' },
+        { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'MoveDown' },
+        { key = '/', mods = 'SHIFT', action = wezterm.action { Search = { CaseSensitiveString = "" } } },
     },
 }
 
