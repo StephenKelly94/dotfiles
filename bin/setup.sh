@@ -61,7 +61,7 @@ else
 	echo "TMUX already installed"
 fi
 
-if [ ! -f "/usr/bin/local/starship" ]; then
+if [ ! -f "/usr/local/bin/starship" ]; then
 	echo "Installing starship"
 	curl -sS https://starship.rs/install.sh | sh -s -- -f >/dev/null
 else
@@ -73,4 +73,4 @@ if [ "$SHELL_CHANGED" = "true" ]; then
 	echo "Shell changed remember to reboot"
 fi
 
-./dot_sync.sh
+$(dirname $(readlink -f $0))/dot_sync.sh

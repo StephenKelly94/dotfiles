@@ -2,8 +2,8 @@
 set -e -o pipefail # fail on error and report it, debug all lines
 
 # Sync dotfiles repo and ensure that dotfiles are tangled correctly afterward
-cd $(dirname $(readlink -f $0))
-cd ..
+GIT_DIR=$(git rev-parse --show-toplevel)
+cd $GIT_DIR
 
 echo "Stashing existing changes..."
 stash_result=$(git stash push -m "sync-dotfiles: Before syncing dotfiles")
@@ -30,4 +30,4 @@ else
 fi
 
 # Sync the submodules
-git submodule update --recursive
+git submodule update --init --recursive
