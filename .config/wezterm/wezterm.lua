@@ -31,6 +31,7 @@ config.disable_default_key_bindings = true
 config.color_scheme = 'catppuccin-frappe'
 config.window_background_opacity = 0.95
 -- config.color_scheme = 'Tokyo Night Storm'
+config.force_reverse_video_cursor = true
 config.font = wezterm.font {
     family = 'FiraCode Nerd Font',
     -- https://github.com/tonsky/FiraCode/wiki/How-to-enable-stylistic-sets
