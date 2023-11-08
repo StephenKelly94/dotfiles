@@ -3,6 +3,9 @@ return {
         "projekt0n/github-nvim-theme",
     },
     {
+        "rebelot/kanagawa.nvim",
+    },
+    {
         "navarasu/onedark.nvim",
         opts = {
             style = "dark",
@@ -11,8 +14,9 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "catppuccin-frappe",
+            -- colorscheme = "catppuccin-frappe",
             -- colorscheme = "github_dark",
+            colorscheme = "kanagawa"
         },
     },
 }

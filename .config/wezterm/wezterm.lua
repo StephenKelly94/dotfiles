@@ -28,9 +28,10 @@ config.disable_default_key_bindings = true
 
 
 -- STYLE
-config.color_scheme = 'catppuccin-frappe'
-config.window_background_opacity = 0.95
+config.color_scheme = 'Kanagawa (Gogh)'
+-- config.color_scheme = 'catppuccin-frappe'
 -- config.color_scheme = 'Tokyo Night Storm'
+config.window_background_opacity = 0.95
 config.force_reverse_video_cursor = true
 config.font = wezterm.font {
     family = 'FiraCode Nerd Font',
