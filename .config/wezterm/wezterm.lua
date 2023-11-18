@@ -95,7 +95,11 @@ config.keys = {
     { key = 'C', mods = 'CTRL', action = act.CopyTo 'Clipboard' },
     { key = 'V', mods = 'CTRL', action = act.PasteFrom 'Clipboard' },
     { key = 'Enter', mods = 'SHIFT|CTRL', action = act.ToggleFullScreen },
-    { key = 'P', mods = 'CTRL', action = wezterm.action.ActivateCommandPalette },
+    { key = 'P', mods = 'CTRL', action = act.ActivateCommandPalette },
+    { key = '+', mods = 'CTRL', action = act.IncreaseFontSize },
+    { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+    { key = '=', mods = 'SHIFT|CTRL', action = act.ResetFontSize },
+
     -- MOVEMENT
     { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
     { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection 'Down' },
@@ -353,7 +357,7 @@ config.key_tables = {
         { key = 'Home', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine', },
         { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'MoveUp' },
         { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'MoveDown' },
-        { key = '/', mods = 'SHIFT', action = wezterm.action { Search = { CaseSensitiveString = "" } } },
+        { key = '/', mods = 'SHIFT', action = act { Search = { CaseSensitiveString = "" } } },
     },
 }
 
