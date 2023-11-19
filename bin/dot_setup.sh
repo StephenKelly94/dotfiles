@@ -14,7 +14,7 @@ fi
 # lazygit
 # wezterm
 
-base_packages="zip unzip git curl neovim tmux zsh ripgrep fzf stow btop $clipboard"
+base_packages="zip unzip git curl neovim tmux zsh alacritty ripgrep fzf stow btop $clipboard"
 
 debian_packages="$base_packages fd-find"
 arch_packages="$base_packages fd"
