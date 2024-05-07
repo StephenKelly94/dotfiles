@@ -58,36 +58,46 @@ kill_process() {
 # e.g. `vmi rust` # => fzf multimode, tab to mark, enter to install
 # if no plugin is supplied (e.g. `vmi<CR>`), fzf will list them for you
 asdf_install() {
-  local lang=${1}
+    local lang=${1}
 
-  if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
-  fi
-
-  if [[ $lang ]]; then
-    local versions=$(asdf list-all $lang | fzf --tac --no-sort --multi)
-    if [[ $versions ]]; then
-      for version in $(echo $versions);
-      do; asdf install $lang $version; done;
+    if [[ ! $lang ]]; then
+        lang=$(asdf plugin-list | fzf)
     fi
-  fi
+
+    if [[ $lang ]]; then
+        local versions=$(asdf list-all $lang | fzf --tac --no-sort --multi)
+        if [[ $versions ]]; then
+            for version in $(echo $versions);
+            do; asdf install $lang $version; done;
+        fi
+    fi
 }
 
 # Remove one or more versions of specified language
 # e.g. `vmi rust` # => fzf multimode, tab to mark, enter to remove
 # if no plugin is supplied (e.g. `vmi<CR>`), fzf will list them for you
 asdf_remove() {
-  local lang=${1}
+    local lang=${1}
 
-  if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
-  fi
+    if [[ ! $lang ]]; then
+        lang=$(asdf plugin-list | fzf)
+    fi
 
-  if [[ $lang ]]; then
-      local versions=$(asdf list $lang | fzf -m)
-      if [[ $versions ]]; then
-          for version in $(echo $versions);
-          do; asdf uninstall $lang $version; done;
-      fi
-  fi
+    if [[ $lang ]]; then
+        local versions=$(asdf list $lang | fzf -m)
+        if [[ $versions ]]; then
+            for version in $(echo $versions);
+            do; asdf uninstall $lang $version; done;
+        fi
+    fi
+}
+
+jwt_decode() {
+    jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
+}
+
+open_pod(){
+    POD_NAME=$(kubectl get pods --no-headers | fzf | awk '{print $1}')
+    echo "Opening pod $POD_NAME..."
+    kubectl exec -ti $POD_NAME -- /bin/sh
 }
