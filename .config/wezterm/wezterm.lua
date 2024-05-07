@@ -55,6 +55,8 @@ config.window_padding = {
     bottom = 0,
 }
 
+config.check_for_updates = false
+
 -- Show which key table is active in the status area
 -- Show the name of the workspace in the bottom right
 -- with the status of the leader
@@ -188,7 +190,7 @@ config.keys = {
             one_shot = false,
         },
     },
-    { key = 'PageUp', mods = 'LEADER', action = act.ActivateCopyMode },
+    { key = 'UpArrow', mods = 'LEADER', action = act.ActivateCopyMode },
 }
 
 for i = 1, 8 do
@@ -353,6 +355,8 @@ config.key_tables = {
         },
         { key = 'PageUp', mods = 'NONE', action = act.CopyMode 'PageUp' },
         { key = 'PageDown', mods = 'NONE', action = act.CopyMode 'PageDown' },
+        { key = 'UpArrow', mods = 'CTRL', action = act.CopyMode 'PageUp' },
+        { key = 'DownArrow', mods = 'CTRL', action = act.CopyMode 'PageDown' },
         { key = 'End', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent', },
         { key = 'Home', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine', },
         { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'MoveUp' },
