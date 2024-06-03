@@ -1,0 +1,9 @@
+[tools]
+node = "latest"
+erlang = "26"
+elixir = "latest"
+rust = "latest"
+"cargo:eza" = "latest"
+
+[settings]
+experimental = true

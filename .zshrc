@@ -118,3 +118,4 @@ export NVM_DIR="$HOME/.nvm"
 [ $(command -v thefuck) ] && eval $(thefuck --alias)
 
 eval "$(starship init zsh)"
+eval "$(/home/ghjd76/.local/bin/mise activate zsh)"
