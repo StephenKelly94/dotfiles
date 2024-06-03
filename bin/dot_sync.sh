@@ -26,7 +26,7 @@ if [[ ! -z $unmerged_files ]]; then
 	printf %"s\n" $unmerged_files # Ensure newlines are printed
 else
 	# Run stow to ensure all new dotfiles are linked
-	stow -t $HOME .
+	stow --no-folding -t $HOME .
 fi
 
 # Sync the submodules
