@@ -42,6 +42,13 @@ elif [ $(command -v pacman) ]; then
 	sudo pacman -Syu $arch_packages
 fi
 
+if [ ! -d "$HOME/.local/kitty.app" ]; then
+    echo "Install kitty"
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+else
+    echo "Kitty already installed"
+fi
+
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
 	echo "Installing oh my zsh and plugins"
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null

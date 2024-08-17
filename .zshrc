@@ -110,8 +110,11 @@ source $ZSH/oh-my-zsh.sh
 
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
-
 export NVM_DIR="$HOME/.nvm"
+
+[ "$TERM" = "xterm-kitty" ] && alias s="kitty +kitten ssh"
+[ "$TERM" = "xterm-kitty" ] && alias d="kitty +kitten diff"
+[ "$TERM" = "xterm-kitty" ] && alias icat="kitty +kitten icat"
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
