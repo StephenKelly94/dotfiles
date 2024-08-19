@@ -1,9 +1,20 @@
 [tools]
 node = "latest"
-erlang = "26"
-elixir = "latest"
+erlang = "27.0.1"
+elixir = "1.17.2"
+python = "latest"
 rust = "latest"
 "cargo:eza" = "latest"
+"cargo:zellij" = "latest"
+go = "latest"
+helm = "latest"
+kubectl = "latest"
+kubelogin = "latest"
+"go:github.com/tilt-dev/ctlptl/cmd/ctlptl" = "latest"
+tilt = "latest"
+kind = "latest"
+"go:github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb" = "latest"
+yq = "latest"
 
 [settings]
 experimental = true

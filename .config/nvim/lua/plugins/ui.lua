@@ -10,7 +10,7 @@ return {
     {
         "folke/which-key.nvim",
         opts = {
-            defaults = {
+            spec = {
                 ["<leader>gd"] = { "<cmd>Gvdiff<cr>", "Diff current file" },
             },
         },
@@ -59,4 +59,10 @@ return {
             },
         },
     },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+    }
 }

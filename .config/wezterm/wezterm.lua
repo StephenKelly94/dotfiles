@@ -31,12 +31,14 @@ config.disable_default_key_bindings = true
 config.color_scheme = 'Kanagawa (Gogh)'
 -- config.color_scheme = 'catppuccin-frappe'
 -- config.color_scheme = 'Tokyo Night Storm'
-config.window_background_opacity = 0.95
+-- config.color_scheme = 'One Dark (Gogh)'
+-- config.color_scheme = 'Github Dark (Gogh)'
+config.window_background_opacity = 0.80
 config.force_reverse_video_cursor = true
 config.font = wezterm.font {
     family = 'FiraCode Nerd Font',
     -- https://github.com/tonsky/FiraCode/wiki/How-to-enable-stylistic-sets
-    harfbuzz_features = { 'zero', 'cv14', 'ss03', 'ss08' }
+    -- harfbuzz_features = { 'zero', 'cv14', 'ss03', 'ss08' }
 }
 
 config.inactive_pane_hsb = {
