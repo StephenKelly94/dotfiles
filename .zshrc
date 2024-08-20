@@ -107,7 +107,6 @@ source $ZSH/oh-my-zsh.sh
 [ -f $HOME/.work-aliases.sh ] && source $HOME/.work-aliases.sh
 
 [ -f $HOME/.asdf ] && source "$HOME/.asdf/asdf.sh"
-[ $(command -v mise) ] && eval "$(/home/ghjd76/.local/bin/mise activate zsh)"
 
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
