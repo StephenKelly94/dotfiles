@@ -3,15 +3,16 @@
 -- Add any additional options here
 local opt = vim.opt
 
-vim.g.autoformat = false
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Line numbers
 opt.relativenumber = true
 opt.number = true
 
 -- Tabs & Indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
+opt.tabstop = 2
+opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
 
@@ -21,6 +22,8 @@ opt.wrap = false
 -- Search
 opt.ignorecase = true
 opt.smartcase = true
+-- nosplit will remove the window
+opt.inccommand = 'split'
 
 -- Cursor line
 opt.cursorline = true
@@ -41,13 +44,12 @@ opt.splitbelow = true
 opt.scrolloff = 8
 
 opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- opt.listchars:append("space:⋅")
-opt.listchars:append("eol:↴")
+-- opt.listchars:append("eol:↴")
 
 opt.undofile = true
 opt.clipboard = "unnamedplus"
 
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-
+opt.foldmethod = "indent"
 opt.foldlevelstart = 99
