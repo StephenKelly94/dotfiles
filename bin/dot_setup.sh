@@ -50,6 +50,7 @@ install_mise() {
     else
         echo "Installing mise"
         curl_package "https://mise.run"
+        mise install
     fi
 }
 

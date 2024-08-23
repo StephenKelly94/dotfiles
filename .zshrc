@@ -102,23 +102,21 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-# Used to load pc specific aliases
 [ -f $HOME/.aliases.sh ] && source $HOME/.aliases.sh
-[ -f $HOME/.work-aliases.sh ] && source $HOME/.work-aliases.sh
-
-[ -f $HOME/.asdf ] && source "$HOME/.asdf/asdf.sh"
 
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
-
-export NVM_DIR="$HOME/.nvm"
 
 [ "$TERM" = "xterm-kitty" ] && alias s="kitty +kitten ssh"
 [ "$TERM" = "xterm-kitty" ] && alias d="kitty +kitten diff"
 [ "$TERM" = "xterm-kitty" ] && alias icat="kitty +kitten icat"
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # eval "$(starship init zsh)"
 [ -f $HOME/.local/bin/mise ] && eval "$($HOME/.local/bin/mise activate zsh)"
+
+# PC specific
+[[ $(hostname) =~ "ghjd76" ]] && export PC_TYPE="work" || export PC_TYPE="personal"
+if [ "$PC_TYPE" = "work" ]; then
+  [ -f $HOME/.work-aliases.sh ] && source $HOME/.work-aliases.sh
+  export MISE_ENV="work"
+fi
