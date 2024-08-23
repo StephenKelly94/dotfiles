@@ -49,7 +49,7 @@ install_mise() {
         echo "Mise already installed"
     else
         echo "Installing mise"
-        curl_package "https://mise.run "
+        curl_package "https://mise.run"
     fi
 }
 
