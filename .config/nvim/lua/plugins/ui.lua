@@ -1,38 +1,45 @@
 return {
-    -- {
-    --     "folke/noice.nvim",
-    --     opts = {
-    --         cmdline = {
-    --             view = "cmdline",
-    --         },
-    --     },
-    -- },
+    -- It's called figlet
     {
-        "folke/which-key.nvim",
+        "folke/snacks.nvim",
         opts = {
-            spec = {
-                ["<leader>gd"] = { "<cmd>Gvdiff<cr>", "Diff current file" },
+            indent = {
+                animate = {
+                    enabled = false
+                }
             },
+            dashboard = {
+                preset = {
+                    header = [[
+  .-')     (`\ .-') /`.-. .-')   
+ ( OO ).    `.( OO ),'\  ( OO )  
+(_)---\_),--./  .--.  ,--. ,--.  
+/    _ | |      |  |  |  .'   /  
+\  :` `. |  |   |  |, |      /,  
+ '..`''.)|  |.'.|  |_)|     ' _) 
+.-._)   \|         |  |  .   \   
+\       /|   ,'.   |  |  |\   \  
+ `-----' '--'   '--'  `--' '--'  
+                    ]]
+                }
+            },
+            zen = {
+                toggles = {
+                    dim = false
+                },
+                win = {
+                    style = {
+                        backdrop = { transparent = false },
+                    }
+                }
+            }
         },
+        keys = {
+            { "<leader>gd", function() vim.cmd('Gvdiff') end, desc="Diff current file" },
+            { "<leader>ub", function() vim.cmd('GitBlameToggle') end, desc="Toggle git blame" },
+            { "<leader>um", function() require("maximize").toggle() end, desc="Toggle Maximize" }
+        }
     },
-    -- {
-    --     "nvimdev/dashboard-nvim",
-    --     opts = function(_, opts)
-    --         local logo = [[
-    --               ********   *******     **   **
-    --              **//////   /**////**   /**  **
-    --             /**         /**    /**  /** **
-    --             /*********  /**    /**  /****
-    --             ////////**  /**    /**  /**/**
-    --                    /**  /**    **   /**//**
-    --              ********   /*******    /** //**
-    --             ////////    ///////     //   //
-    --         ]]
-    --         logo = string.rep("\n", 8) .. logo .. "\n\n"
-    --         opts.config.header = vim.split(logo, "\n")
-    --         return opts
-    --     end,
-    -- },
     {
         "akinsho/bufferline.nvim",
         opts = {
