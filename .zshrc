@@ -63,7 +63,7 @@ ZSH_THEME="mine"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.config/zsh-custom/
+ZSH_CUSTOM=$HOME/.config/zsh-custom
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -72,8 +72,8 @@ ZSH_CUSTOM=$HOME/.config/zsh-custom/
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     # Should be installed locally
-    zsh-autosuggestions
-    fast-syntax-highlighting
+    # zsh-autosuggestions
+    # fast-syntax-highlighting
 
     git
     node
@@ -104,6 +104,8 @@ source $ZSH/oh-my-zsh.sh
 
 [ -f $HOME/.aliases.sh ] && source $HOME/.aliases.sh
 
+source $ZSH_CUSTOM/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 

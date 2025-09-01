@@ -1,11 +1,13 @@
 [tools]
 node = "latest"
-python = "latest"
-rust = "latest"
-"cargo:eza" = "latest"
-# "cargo:zellij" = "latest"
-"cargo:tree-sitter-cli" = "latest"
-go = "latest"
+# go = "latest"
+"aqua:neovim" = "latest"
+"aqua:BurntSushi/ripgrep" = "latest"
+"aqua:junegunn/fzf" = "latest"
+"aqua:aristocratos/btop" = "latest"
+"aqua:jesseduffield/lazygit" = "latest"
+"aqua:jqlang/jq" = "latest"
+"aqua:eza-community/eza" = "latest"
 
 [settings]
 experimental = true

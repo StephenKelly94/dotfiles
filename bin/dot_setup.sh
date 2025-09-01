@@ -70,7 +70,7 @@ main() {
     local clipboard
     clipboard=$([[ -n $WAYLAND_DISPLAY ]] && echo "wl-clipboard" || echo "xclip")
 
-    local base_packages="zip unzip git curl neovim tmux zsh alacritty ripgrep fzf stow btop $clipboard"
+    local base_packages="zip unzip git curl zsh stow $clipboard"
     local debian_packages="$base_packages fd-find"
     local arch_packages="$base_packages fd"
     local fedora_packages="$base_packages util-linux-user fd-find"
@@ -81,8 +81,8 @@ main() {
         echo "Detected debian"
         echo "Adding and updating repos first"
         sudo add-apt-repository universe -y >/dev/null
-        sudo add-apt-repository ppa:aslatter/ppa -y >/dev/null # Alacritty
-        sudo add-apt-repository ppa:neovim-ppa/unstable -y >/dev/null
+        # sudo add-apt-repository ppa:aslatter/ppa -y >/dev/null # Alacritty
+        sudo add-apt-repository ppa:neovim-ppa/stable -y >/dev/null
         sudo apt-get update >/dev/null
         # shellcheck disable=SC2086
         sudo apt-get install -y $debian_packages
@@ -98,8 +98,8 @@ main() {
 
     # Install applications if not already installed
     install_kitty
-    install_starship
-    install_tmux
+    # install_starship
+    # install_tmux
     install_mise
     install_omz
 
