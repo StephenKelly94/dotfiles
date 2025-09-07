@@ -72,8 +72,8 @@ ZSH_CUSTOM=$HOME/.config/zsh-custom
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     # Should be installed locally
-    # zsh-autosuggestions
-    # fast-syntax-highlighting
+    zsh-autosuggestions
+    fast-syntax-highlighting
 
     git
     node
@@ -106,8 +106,6 @@ source $ZSH/oh-my-zsh.sh
 
 source $ZSH_CUSTOM/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
 
 [ "$TERM" = "xterm-kitty" ] && alias s="kitty +kitten ssh"
 [ "$TERM" = "xterm-kitty" ] && alias d="kitty +kitten diff"
@@ -115,6 +113,7 @@ source /usr/share/doc/fzf/examples/completion.zsh
 
 # eval "$(starship init zsh)"
 [ -f $HOME/.local/bin/mise ] && eval "$($HOME/.local/bin/mise activate zsh)"
+[ "$(command -v fzf)" ] && source <(fzf --zsh)
 
 # PC specific
 [[ $(hostname) =~ "ghjd76" ]] && export PC_TYPE="work" || export PC_TYPE="personal"
