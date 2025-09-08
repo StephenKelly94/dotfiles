@@ -37,7 +37,8 @@ return {
         keys = {
             { "<leader>gd", function() vim.cmd('Gvdiff') end, desc="Diff current file" },
             { "<leader>ub", function() vim.cmd('GitBlameToggle') end, desc="Toggle git blame" },
-            { "<leader>um", function() require("maximize").toggle() end, desc="Toggle Maximize" }
+            { "<leader>um", function() require("maximize").toggle() end, desc="Toggle Maximize" },
+            { "<leader>sp", function() Snacks.picker.projects() end, desc = "Projects" },
         }
     },
     {
@@ -65,11 +66,5 @@ return {
                 },
             },
         },
-    },
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function() vim.fn["mkdp#util#install"]() end,
     }
 }

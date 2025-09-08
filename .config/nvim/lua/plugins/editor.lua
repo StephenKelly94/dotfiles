@@ -58,5 +58,5 @@ return {
         },
     },
     -- Disable flash on search
-    { "folke/flash.nvim", enabled = false },
+    -- { "folke/flash.nvim", enabled = false },
 }

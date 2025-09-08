@@ -18,6 +18,7 @@ require("lazy").setup({
         -- { import = "lazyvim.plugins.extras.lang.rust" },
         { import = "lazyvim.plugins.extras.lang.elixir" },
         -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+        { import = "lazyvim.plugins.extras.coding.mini-surround" },
         -- import/override with your plugins
         { import = "plugins" },
     },
