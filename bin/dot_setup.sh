@@ -97,11 +97,11 @@ main() {
     fi
 
     # Install applications if not already installed
-    install_kitty
+    # install_kitty
     # install_starship
     # install_tmux
     install_mise
-    install_omz
+    # install_omz
 
     # Run dot_sync.sh
     "$(dirname "$(readlink -f "$0")")"/dot_sync.sh
