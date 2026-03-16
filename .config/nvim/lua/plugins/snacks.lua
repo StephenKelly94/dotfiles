@@ -3,16 +3,18 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      win = {
-        input = {
-          keys = {
-            ["<C-d>"] = { "inspect", mode = { "n", "i" } },
-            ["<C-f>"] = { "toggle_follow", mode = { "i", "n" } },
-            ["<C-h>"] = { "toggle_hidden", mode = { "i", "n" } },
-            ["<C-i>"] = { "toggle_ignored", mode = { "i", "n" } },
-            ["<C-m>"] = { "toggle_maximize", mode = { "i", "n" } },
-            ["<C-p>"] = { "toggle_preview", mode = { "i", "n" } },
-            ["<C-w>"] = { "cycle_win", mode = { "i", "n" } },
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["<c-d>"] = { "inspect", mode = { "n", "i" } },
+              ["<c-f>"] = { "toggle_follow", mode = { "i", "n" } },
+              ["<c-h>"] = { "toggle_hidden", mode = { "i", "n" } },
+              ["<c-i>"] = { "toggle_ignored", mode = { "i", "n" } },
+              ["<c-m>"] = { "toggle_maximize", mode = { "i", "n" } },
+              ["<c-p>"] = { "toggle_preview", mode = { "i", "n" } },
+              ["<c-w>"] = { "cycle_win", mode = { "i", "n" } },
+            },
           },
         },
       },

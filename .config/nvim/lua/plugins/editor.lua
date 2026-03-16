@@ -47,14 +47,14 @@ return {
     {
         "declancm/maximize.nvim",
     },
-    {
-        "mbbill/undotree",
-        keys = {
-            {
-                "<leader>cu",
-                "<cmd>UndotreeToggle<cr>",
-                desc = "Undo Tree Toggle",
-            },
-        },
-    },
+    -- {
+    --     "mbbill/undotree",
+    --     keys = {
+    --         {
+    --             "<leader>uu",
+    --             "<cmd>UndotreeToggle<cr>",
+    --             desc = "Undo Tree Toggle",
+    --         },
+    --     },
+    -- },
 }
