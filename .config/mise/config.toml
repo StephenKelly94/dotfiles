@@ -4,10 +4,15 @@ node = "latest"
 "aqua:neovim" = "latest"
 "aqua:BurntSushi/ripgrep" = "latest"
 "aqua:junegunn/fzf" = "latest"
-"aqua:aristocratos/btop" = "latest"
 "aqua:jesseduffield/lazygit" = "latest"
 "aqua:jqlang/jq" = "latest"
-"aqua:eza-community/eza" = "latest"
+"aqua:jesseduffield/lazydocker" = "latest"
+"aqua:derailed/k9s" = "latest"
+python = "latest"
+"aqua:helm/helm" = "latest"
+eza = "latest"
+bun = "latest"
 
 [settings]
 experimental = true
+idiomatic_version_file_enable_tools = ["node"]
