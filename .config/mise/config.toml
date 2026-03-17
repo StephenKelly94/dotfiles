@@ -1,5 +1,9 @@
 [tools]
 node = "latest"
+python = "latest"
+rust = "latest"
+bun = "latest"
+eza = "latest"
 # go = "latest"
 "aqua:neovim" = "latest"
 "aqua:BurntSushi/ripgrep" = "latest"
@@ -8,10 +12,9 @@ node = "latest"
 "aqua:jqlang/jq" = "latest"
 "aqua:jesseduffield/lazydocker" = "latest"
 "aqua:derailed/k9s" = "latest"
-python = "latest"
 "aqua:helm/helm" = "latest"
-eza = "latest"
-bun = "latest"
+"cargo:zellij" = "latest"
+"npm:tree-sitter-cli" = "latest"
 
 [settings]
 experimental = true

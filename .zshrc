@@ -76,13 +76,14 @@ plugins=(
     fast-syntax-highlighting
 
     git
+    gcloud
     node
     nvm
     systemadmin
-    tmux
+    # tmux
     wd
     z
-    kubectl
+    # kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -115,9 +116,4 @@ source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 [ -f $HOME/.local/bin/mise ] && eval "$($HOME/.local/bin/mise activate zsh)"
 [ "$(command -v fzf)" ] && source <(fzf --zsh)
 
-# PC specific
-[[ $(hostname) =~ "ghjd76" ]] && export PC_TYPE="work" || export PC_TYPE="personal"
-if [ "$PC_TYPE" = "work" ]; then
-  [ -f $HOME/.work-aliases.sh ] && source $HOME/.work-aliases.sh
-  export MISE_ENV="work"
-fi
+

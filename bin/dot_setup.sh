@@ -7,40 +7,12 @@ curl_package() {
     curl -sSL "$url" | sh /dev/stdin "$args" >/dev/null
 }
 
-install_kitty() {
-    local kitty_loc="$HOME/.local/kitty.app/"
-    if [ -d "$kitty_loc" ]; then
-        echo "Kitty already installed"
+install_brew() {
+    if [ "$(command -v brew)" ]; then
+        echo "Homebrew already installed"
     else
-        echo "Installing kitty"
-        curl_package "https://sw.kovidgoyal.net/kitty/installer.sh" "launch=n"
-        sudo ln -s "$kitty_loc"/bin/kitty "$kitty_loc"/bin/kitten "$HOME"/.local/bin/
-        # Place the kitty.desktop file somewhere it can be found by the OS
-        cp "$kitty_loc"/share/applications/kitty.desktop ~/.local/share/applications/
-        # Update the paths to the kitty and its icon in the kitty desktop file(s)
-        sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
-        sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty.desktop
-        # Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
-        echo 'kitty.desktop' >~/.config/xdg-terminals.list
-    fi
-}
-
-install_tmux() {
-    if [ "$(command -v tmux)" ]; then
-        echo "TMUX already installed"
-    else
-        echo "Installing tmux tpm"
-        mkdir -p ~/.tmux/plugins/
-        git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm || true
-    fi
-}
-
-install_starship() {
-    if [ "$(command -v starship)" ]; then
-        echo "Starship already installed"
-    else
-        echo "Installing starship"
-        curl_package "https://starship.rs/install.sh"
+        echo "Installing Homebrew"
+        curl_package "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
     fi
 }
 
@@ -66,42 +38,34 @@ install_omz() {
 }
 
 main() {
-    # Set variables
-    local clipboard
-    clipboard=$([[ -n $WAYLAND_DISPLAY ]] && echo "wl-clipboard" || echo "xclip")
+    if [ "$(uname)" = "Linux" ]; then
+        echo "Installing Homebrew dependencies and Linux-specific packages"
+        local clipboard
+        clipboard=$([[ -n $WAYLAND_DISPLAY ]] && echo "wl-clipboard" || echo "xclip")
 
-    local base_packages="zip unzip git curl zsh stow $clipboard"
-    local debian_packages="$base_packages fd-find"
-    local arch_packages="$base_packages fd"
-    local fedora_packages="$base_packages util-linux-user fd-find"
-
-    # Detect package manager and install packages
-    echo "Installing the must-have pre-requisites"
-    if [ "$(command -v apt-get)" ]; then
-        echo "Detected debian"
-        echo "Adding and updating repos first"
-        sudo add-apt-repository universe -y >/dev/null
-        # sudo add-apt-repository ppa:aslatter/ppa -y >/dev/null # Alacritty
-        sudo add-apt-repository ppa:neovim-ppa/stable -y >/dev/null
-        sudo apt-get update >/dev/null
-        # shellcheck disable=SC2086
-        sudo apt-get install -y $debian_packages
-    elif [ "$(command -v dnf)" ]; then
-        echo "Detected Fedora"
-        # shellcheck disable=SC2086
-        sudo dnf install -y $fedora_packages
-    elif [ "$(command -v pacman)" ]; then
-        echo "Detected Arch"
-        # shellcheck disable=SC2086
-        sudo pacman -Syu $arch_packages
+        if [ "$(command -v apt-get)" ]; then
+            sudo apt-get install -y build-essential procps curl file "$clipboard"
+        elif [ "$(command -v dnf)" ]; then
+            sudo dnf group install -y development-tools
+            sudo dnf install -y procps-ng curl file util-linux-user "$clipboard"
+        elif [ "$(command -v pacman)" ]; then
+            sudo pacman -Syu base-devel procps-ng curl file "$clipboard"
+        fi
     fi
 
-    # Install applications if not already installed
-    # install_kitty
-    # install_starship
-    # install_tmux
+    local brews=(git curl zsh stow fd zip unzip)
+    local casks=(gcloud-cli)
+
+    install_brew
+
+    echo "Installing brew packages"
+    brew install "${brews[@]}"
+
+    echo "Installing casks"
+    brew install --cask "${casks[@]}"
+
     install_mise
-    # install_omz
+    install_omz
 
     # Run dot_sync.sh
     "$(dirname "$(readlink -f "$0")")"/dot_sync.sh

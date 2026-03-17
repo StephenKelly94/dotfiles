@@ -39,22 +39,25 @@ return {
         -- }
     },
     {
-        "tpope/vim-fugitive",
-    },
-    {
         "f-person/git-blame.nvim",
+        keys = {
+            { "<leader>ub", function() vim.cmd('GitBlameToggle') end, desc = "Toggle git blame" },
+        },
     },
     {
         "declancm/maximize.nvim",
+        keys = {
+            { "<leader>um", function() require("maximize").toggle() end, desc = "Toggle Maximize" },
+        },
     },
-    -- {
-    --     "mbbill/undotree",
-    --     keys = {
-    --         {
-    --             "<leader>uu",
-    --             "<cmd>UndotreeToggle<cr>",
-    --             desc = "Undo Tree Toggle",
-    --         },
-    --     },
-    -- },
+    {
+        "mbbill/undotree",
+        keys = {
+            {
+                "<leader>uu",
+                "<cmd>UndotreeToggle<cr>",
+                desc = "Undo Tree Toggle",
+            },
+        },
+    },
 }

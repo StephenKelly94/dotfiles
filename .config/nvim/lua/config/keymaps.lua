@@ -27,9 +27,8 @@ local keymap = vim.keymap
 -- keymap.set("v", "<", "<gv")
 -- keymap.set("v", ">", ">gv")
 
--- Paste and keep registervim.keymap.set("n", "J", "mzJ`z")
-keymap.set("v", "<leader>p", '"_dp', { noremap = true })
+-- Paste and keep register
+keymap.set("v", "<leader>p", '"_dP', { noremap = true })
 
-keymap.set("n", "<leader>gf", function()
-    vim.cmd([[!git log -1 --format="medium" -- %]])
-end, { desc = "Git last commit info" })
+-- Keep cursor position when joining lines
+keymap.set("n", "J", "mzJ`z")

@@ -4,10 +4,18 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
+        hidden = true,
+        ignored = false,
+        sources = {
+          files = {
+            hidden = true,
+          },
+        },
         win = {
           input = {
             keys = {
-              ["<c-d>"] = { "inspect", mode = { "n", "i" } },
+              ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+              ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
               ["<c-f>"] = { "toggle_follow", mode = { "i", "n" } },
               ["<c-h>"] = { "toggle_hidden", mode = { "i", "n" } },
               ["<c-i>"] = { "toggle_ignored", mode = { "i", "n" } },
@@ -17,6 +25,10 @@ return {
             },
           },
         },
+      },
+      explorer = {
+        hidden = true,
+        ignored = false,
       },
       indent = {
         animate = {
@@ -50,9 +62,6 @@ return {
       }
     },
     keys = {
-      { "<leader>gd", function() vim.cmd('Gvdiff') end, desc="Diff current file" },
-      { "<leader>ub", function() vim.cmd('GitBlameToggle') end, desc="Toggle git blame" },
-      { "<leader>um", function() require("maximize").toggle() end, desc="Toggle Maximize" },
       { "<leader>sp", function() Snacks.picker.projects() end, desc = "Projects" },
     }
   },

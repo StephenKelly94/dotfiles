@@ -1,5 +1,13 @@
 return {
     {
+        "folke/which-key.nvim",
+        opts = {
+            spec = {
+                { "<leader>ub", desc = "Toggle git blame" },
+            },
+        },
+    },
+    {
         "akinsho/bufferline.nvim",
         opts = {
             options = {
