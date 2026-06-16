@@ -13,7 +13,6 @@ end
 
 -- This is where you actually apply your config choices
 -- OPTIONS
-config.default_prog = { '/usr/bin/zsh' }
 config.use_dead_keys = false
 config.enable_scroll_bar= true
 config.disable_default_key_bindings = true
@@ -46,7 +45,7 @@ config.inactive_pane_hsb = {
     brightness = 0.7,
 }
 
-config.font_size = 10.0
+config.font_size = 14.0
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 

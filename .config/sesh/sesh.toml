@@ -1,0 +1,4 @@
+[[session]]
+name = "dotfiles"
+path = "~/dev/dotfiles"
+startup_command = "tmux_layouts/dotfiles.sh"

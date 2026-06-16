@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e -o pipefail # fail on error and report it, debug all lines
 
+script_dir() {
+    dirname "$(readlink -f "$0")"
+}
+
 curl_package() {
     local url="$1"
     local args="$2"
@@ -26,49 +30,82 @@ install_mise() {
     fi
 }
 
+install_starship() {
+    if [ "$(command -v starship)" ]; then
+        echo "Starship already installed"
+    else
+        echo "Installing starship"
+        curl_package "https://starship.rs/install.sh"
+    fi
+}
+
+install_tmux() {
+    if [ "$(command -v tmux)" ]; then
+        echo "TMUX already installed"
+    else
+        echo "Installing tmux tpm"
+        mkdir -p ~/.tmux/plugins/
+        git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm || true
+    fi
+}
+
 install_omz() {
     if [ -d "$HOME/.oh-my-zsh" ]; then
         echo "ZSH already installed"
     else
         echo "Installing oh my zsh and plugins"
         curl_package "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-        chsh -s "$(which zsh)"
-        echo "Shell changed remember to reboot"
     fi
 }
 
 main() {
-    if [ "$(uname)" = "Linux" ]; then
-        echo "Installing Homebrew dependencies and Linux-specific packages"
+    if [ "$(uname)" = "Darwin" ]; then
+        install_brew
+
+        echo "Updating Homebrew"
+        brew update
+
+        echo "Installing brew packages"
+        brew bundle --file="$(script_dir)/../Brewfile"
+    elif [ "$(uname)" = "Linux" ]; then
         local clipboard
         clipboard=$([[ -n $WAYLAND_DISPLAY ]] && echo "wl-clipboard" || echo "xclip")
 
+        local base_packages="zip unzip git curl zsh stow $clipboard"
+        local debian_packages="$base_packages fd-find"
+        local arch_packages="$base_packages fd"
+        local fedora_packages="$base_packages util-linux-user fd-find"
+
+        echo "Installing the must-have pre-requisites"
         if [ "$(command -v apt-get)" ]; then
-            sudo apt-get install -y build-essential procps curl file "$clipboard"
+            echo "Detected debian"
+            echo "Adding and updating repos first"
+            sudo add-apt-repository universe -y >/dev/null
+            sudo apt-get update >/dev/null
+            # shellcheck disable=SC2086
+            sudo apt-get install -y $debian_packages
         elif [ "$(command -v dnf)" ]; then
-            sudo dnf group install -y development-tools
-            sudo dnf install -y procps-ng curl file util-linux-user "$clipboard"
+            echo "Detected Fedora"
+            # shellcheck disable=SC2086
+            sudo dnf install -y $fedora_packages
         elif [ "$(command -v pacman)" ]; then
-            sudo pacman -Syu base-devel procps-ng curl file "$clipboard"
+            echo "Detected Arch"
+            # shellcheck disable=SC2086
+            sudo pacman -Syu $arch_packages
         fi
+
+        # Change shell
+        chsh -s "$(which fish)"
+        echo "Shell changed remember to reboot"
     fi
-
-    local brews=(git curl zsh stow fd zip unzip)
-    local casks=(gcloud-cli)
-
-    install_brew
-
-    echo "Installing brew packages"
-    brew install "${brews[@]}"
-
-    echo "Installing casks"
-    brew install --cask "${casks[@]}"
 
     install_mise
     install_omz
+    install_starship
+    install_tmux
 
     # Run dot_sync.sh
-    "$(dirname "$(readlink -f "$0")")"/dot_sync.sh
+    "$(script_dir)"/dot_sync.sh
 }
 
 main

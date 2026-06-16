@@ -1,0 +1,11 @@
+brew "git"
+brew "curl"
+brew "zsh"
+brew "stow"
+brew "fd"
+brew "zip"
+brew "unzip"
+
+cask "font-fira-code-nerd-font"
+cask "wezterm"
+cask "gcloud-cli"

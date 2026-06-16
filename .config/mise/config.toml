@@ -1,11 +1,12 @@
 [tools]
-node = "latest"
+node = "22.22.2"
 python = "latest"
 rust = "latest"
 bun = "latest"
 eza = "latest"
-# go = "latest"
+go = "latest"
 "aqua:neovim" = "latest"
+"aqua:fish-shell/fish-shell" = "latest"
 "aqua:BurntSushi/ripgrep" = "latest"
 "aqua:junegunn/fzf" = "latest"
 "aqua:jesseduffield/lazygit" = "latest"
@@ -13,8 +14,10 @@ eza = "latest"
 "aqua:jesseduffield/lazydocker" = "latest"
 "aqua:derailed/k9s" = "latest"
 "aqua:helm/helm" = "latest"
+"aqua:argoproj/argo-cd" = "latest"
 "cargo:zellij" = "latest"
 "npm:tree-sitter-cli" = "latest"
+"go:github.com/joshmedeski/sesh/v2" = "latest"
 
 [settings]
 experimental = true

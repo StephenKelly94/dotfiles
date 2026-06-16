@@ -5,6 +5,8 @@ local opt = vim.opt
 
 vim.g.autoformat = false
 
+vim.g.root_spec = { ".git", "cwd" }
+
 -- Line numbers
 opt.relativenumber = true
 opt.number = true

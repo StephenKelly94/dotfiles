@@ -1,11 +1,8 @@
 #!/bin/bash
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias lg="lazygit"
 alias lzd="lazydocker"
-alias fd="fdfind"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias weather="curl 'wttr.in/copenhagen?m'"
-alias ftldr="tldr --list | fzf --preview 'tldr {} --color always' | xargs tldr"
 alias fta="tmux_switcher"
 alias ftk="tmux_kill_session"
 alias kp="kill_process"
@@ -56,8 +53,30 @@ jwt_decode() {
     jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
 }
 
-open_pod(){
-    POD_NAME=$(kubectl get pods --no-headers | fzf | awk '{print $1}')
-    echo "Opening pod $POD_NAME..."
-    kubectl exec -ti $POD_NAME -- /bin/sh
+kctx() {
+    local ctx
+    ctx=$(kubectl config get-contexts -o name | fzf \
+        --preview 'kubectl get namespaces --context {} 2>/dev/null' \
+        --preview-window right:60%)
+    [ -n "$ctx" ] && kubectl config use-context "$ctx"
+}
+
+# fzf-pick a worktree from any repo under ~/dev/papi and cd into it
+# Shows entries as: repo/worktree (branch)
+wt() {
+    local base=~/dev/papi
+    local selected
+    selected=$(
+        for repo in "$base"/*/; do
+            [ -e "$repo.git" ] || continue
+            git -C "$repo" worktree list --porcelain | awk -v repo="$(basename "$repo")" '
+                /^worktree /  { path=$2; name=path; sub(".*/", "", name) }
+                /^bare$/      { path="" }
+                /^branch /    { br=$2; sub("refs/heads/", "", br)
+                                if (path != "") printf "%s/%s (%s)\t%s\n", repo, name, br, path }'
+        done | fzf --exit-0 --delimiter='\t' --with-nth=1 \
+            --preview 'git -C {2} log --oneline --decorate --graph --color=always -15' \
+            --preview-window right:60%
+    ) || { echo "No worktrees found."; return 1; }
+    cd "$(cut -f2 <<< "$selected")"
 }
