@@ -27,3 +27,16 @@
 *.log
 *.tmp
 *.bak
+
+# Fish-generated machine state
+.config/fish/fish_variables
+
+# Theme switcher state
+.config/theme
+
+# Theme switcher active-pointers (managed by bin/theme)
+.config/ghostty/theme.conf
+.config/kitty/current-theme.conf
+
+# tmux plugins (cloned by TPM, not tracked)
+.config/tmux/plugins/

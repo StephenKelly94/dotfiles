@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# One-command theme switcher for ghostty + kitty + neovim.
+#
+# Each theme is a directory of per-app files under ~/.config/themes/<name>/:
+#   ghostty.conf   (ghostty: `theme = <Name>`)
+#   kitty.conf     (kitty:   full color file)
+# Switching just repoints each app's active-theme symlink at the chosen set —
+# no app-specific CLI involved. neovim reads the chosen name from ~/.config/theme
+# at startup (see lua/plugins/colorscheme.lua).
+#
+# Usage:
+#   theme            # show current + available
+#   theme <name>     # apply everywhere
+#
+# Add a theme: create ~/.config/themes/<name>/ with ghostty.conf + kitty.conf,
+# and add a mapping in lua/plugins/colorscheme.lua for neovim.
+set -euo pipefail
+
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+state_file="$config_home/theme"
+
+# ghostty/kitty resolve `config-file`/`include` paths relative to the config
+# DIRECTORY as discovered (~/.config/<app>/), not the symlink's real target — so
+# the active-theme pointer must live in the XDG config dir, beside the (symlinked)
+# config file. The themes/ dir is stowed there too, so this stays inside ~/.config.
+themes_dir="$config_home/themes"
+ghostty_link="$config_home/ghostty/theme.conf"
+kitty_link="$config_home/kitty/current-theme.conf"
+
+usage() {
+    echo "Usage: theme <name>"
+    printf "Available:"
+    for d in "$themes_dir"/*/; do printf " %s" "$(basename "$d")"; done
+    echo
+    [ -f "$state_file" ] && echo "Current: $(cat "$state_file")"
+}
+
+main() {
+    local name="${1:-}"
+    if [ -z "$name" ]; then
+        usage
+        exit 0
+    fi
+
+    local dir="$themes_dir/$name"
+    if [ ! -d "$dir" ]; then
+        echo "Unknown theme: $name" >&2
+        usage
+        exit 1
+    fi
+
+    # Repoint the active-theme symlinks (-f replace, -n don't follow into a dir).
+    ln -sfn "$dir/ghostty.conf" "$ghostty_link"
+    ln -sfn "$dir/kitty.conf" "$kitty_link"
+
+    # Record choice; neovim reads this on startup to pick its colorscheme.
+    echo "$name" >"$state_file"
+
+    # kitty reloads its config on SIGUSR1 — live, no remote control needed.
+    pkill -USR1 -x kitty 2>/dev/null || true
+
+    echo "Theme set to '$name'."
+    echo "  kitty:   reloaded live (if running)"
+    echo "  ghostty: new windows apply it; reload current window via your reload-config keybind"
+    echo "  neovim:  new instances apply it"
+}
+
+main "$@"
