@@ -1,9 +1,15 @@
-shell-integration = fish
+shell-integration = zsh
+
+# Start (or attach to) a tmux session named "main".
+# Login shell resolves tmux from PATH, so no hardcoded brew path.
+command = zsh -lc "exec tmux new-session -A -s main"
 
 font-family = "FiraCode Nerd Font"
-font-size = 14
+font-size = 12
 
-theme = catppuccin-frappe
+# Theme is managed by the `theme` switcher script, which writes theme.conf.
+# (Path is relative to this config's directory.)
+config-file = theme.conf
 
 window-padding-x = 8
 window-padding-y = 8
@@ -11,4 +17,4 @@ window-padding-y = 8
 cursor-style = block
 cursor-style-blink = false
 
-macos-option-as-alt = true
+macos-option-as-alt = false
