@@ -10,6 +10,9 @@ if status is-interactive
     # Starship prompt
     starship init fish | source
 
+    # zoxide (provides `z` / `zi`)
+    command -q zoxide && zoxide init fish | source
+
     # PATH
     fish_add_path $HOME/bin
     fish_add_path $HOME/.local/bin
@@ -32,4 +35,8 @@ if status is-interactive
     abbr -a la ls -la
     abbr -a .. cd ..
     abbr -a ... cd ../..
+
+    # Refresh a long-running tmux server's PATH (e.g. after a mise version bump
+    # breaks run-shell bindings like prefix-s). string join because $PATH is a list.
+    alias tmux-refresh-path 'tmux set-environment -g PATH (string join : $PATH)'
 end
