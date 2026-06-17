@@ -1,0 +1,27 @@
+# sheldon plugin manager — https://sheldon.cli.rs
+# Plugins are cloned to ~/.local/share/sheldon and sourced via `sheldon source`.
+shell = "zsh"
+
+# Loaded in order. fast-syntax-highlighting must come last.
+
+# Sensible defaults (OMZ-style, no framework): compinit + completion styles, history.
+[plugins.zephyr-completion]
+github = "mattmc3/zephyr"
+dir = "plugins/completion"
+
+[plugins.zephyr-history]
+github = "mattmc3/zephyr"
+dir = "plugins/history"
+
+[plugins.zsh-vi-mode]
+github = "jeffreytse/zsh-vi-mode"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+# ace-jump/easymotion-style jump; defines the `zce` widget. Bound in .zshrc.
+[plugins.zce]
+github = "hchbaw/zce.zsh"
+
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"

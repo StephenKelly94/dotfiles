@@ -1,0 +1,35 @@
+#!/bin/bash
+# shellcheck shell=bash
+# Shell aliases. Sourced from .zshrc. Functions live in ~/.functions.
+
+# ── Apps ────────────────────────────────────────────────────────────────────
+alias lg='lazygit'
+alias lzd='lazydocker'
+alias zshconfig='$EDITOR ~/.zshrc'
+
+# ── Listing (eza) ───────────────────────────────────────────────────────────
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --git --icons=auto'                                   # replace ls with eza
+    alias l='eza --git --icons=auto -lbF'                               # long, binary sizes, type classifier
+    alias ll='eza --git --icons=auto -lah'                              # long, all, header
+    alias la='eza --git --icons=auto -lah --group --octal-permissions'  # long, all, group + octal perms
+    alias lx='eza --git --icons=auto -lah --extended'                   # long, all, extended attributes
+    alias llm='eza --git --icons=auto -lah --sort=modified'             # long, all, sorted by mtime
+    alias lS='eza --git --icons=auto -1'                                # one entry per line
+    alias tree='eza --git --icons=auto --tree --level=2'                # tree view, 2 levels deep
+fi
+
+# ── tmux ────────────────────────────────────────────────────────────────────
+# Refresh a long-running tmux server's PATH (e.g. after a mise version bump breaks
+# run-shell bindings like prefix-s). Reattach not required.
+alias tmux-refresh-path='tmux set-environment -g PATH "$PATH"'
+
+# ── Processes ───────────────────────────────────────────────────────────────
+alias kp='kill_process'   # function defined in ~/.functions
+
+# ── kitty terminal integration ──────────────────────────────────────────────
+if [ "$TERM" = "xterm-kitty" ]; then
+    alias s='kitty +kitten ssh'
+    alias d='kitty +kitten diff'
+    alias icat='kitty +kitten icat'
+fi

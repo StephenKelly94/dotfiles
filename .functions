@@ -1,0 +1,53 @@
+#!/bin/bash
+# shellcheck shell=bash
+# Shell functions. Sourced from .zshrc. Aliases live in ~/.aliases.
+
+# ── Processes ───────────────────────────────────────────────────────────────
+# fzf-pick process(es) and kill them. Default SIGTERM (graceful);
+# pass a signal to override, e.g. `kp 9` or `kp KILL` to force.
+kill_process() {
+    local sig="${1:-TERM}" selection
+    selection=$(
+        ps -eo pid,user,%cpu,%mem,args | sed 1d |
+            fzf -m --reverse --header "kill -$sig — TAB to multi-select, Enter to confirm"
+    ) || return
+    [[ -z $selection ]] && return
+    awk '{print $1}' <<< "$selection" | xargs kill -"$sig"
+}
+
+# ── Misc ────────────────────────────────────────────────────────────────────
+# Decode the header + payload of a JWT.
+jwt_decode() {
+    jq -R 'split(".") | .[0:2] | map(@base64d) | map(fromjson)' <<< "$1"
+}
+
+# ── Kubernetes ──────────────────────────────────────────────────────────────
+# fzf-pick a kube-context (preview its namespaces) and switch to it.
+kctx() {
+    local ctx
+    ctx=$(kubectl config get-contexts -o name | fzf \
+        --preview 'kubectl get namespaces --context {} 2>/dev/null' \
+        --preview-window right:60%)
+    [ -n "$ctx" ] && kubectl config use-context "$ctx"
+}
+
+# ── Git worktrees ───────────────────────────────────────────────────────────
+# fzf-pick a worktree from any repo under ~/dev/papi and cd into it.
+# Entries show as: repo/worktree (branch)
+wt() {
+    local base=~/dev/papi
+    local selected
+    selected=$(
+        for repo in "$base"/*/; do
+            [ -e "$repo.git" ] || continue
+            git -C "$repo" worktree list --porcelain | awk -v repo="$(basename "$repo")" '
+                /^worktree /  { path=$2; name=path; sub(".*/", "", name) }
+                /^bare$/      { path="" }
+                /^branch /    { br=$2; sub("refs/heads/", "", br)
+                                if (path != "") printf "%s/%s (%s)\t%s\n", repo, name, br, path }'
+        done | fzf --exit-0 --delimiter='\t' --with-nth=1 \
+            --preview 'git -C {2} log --oneline --decorate --graph --color=always -15' \
+            --preview-window right:60%
+    ) || { echo "No worktrees found."; return 1; }
+    cd "$(cut -f2 <<< "$selected")" || return 1
+}

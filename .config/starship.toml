@@ -1,0 +1,16 @@
+# Starship prompt — sensible defaults.
+# Full reference: https://starship.rs/config/
+add_newline = true
+command_timeout = 1000
+
+# Show the time on the right side of the prompt (when the command was run)
+right_format = "$time"
+
+[gcloud]
+disabled = true
+
+[time]
+disabled = false
+format = '[$time]($style)'
+time_format = "%H:%M:%S"
+style = "dimmed white"
