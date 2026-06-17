@@ -11,8 +11,8 @@ tmux split-window -h
 
 # Move to bottom left and launch claude
 tmux select-pane -L
-tmux send-keys "claude" Enter
+tmux send-keys "claude --resume" Enter
 
 # Move to top and launch nvim
 tmux select-pane -U
-tmux send-keys "nvim ." Enter
+tmux send-keys "nvim" Enter

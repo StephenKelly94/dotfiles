@@ -1,4 +1,19 @@
 [[session]]
 name = "dotfiles"
 path = "~/dev/dotfiles"
-startup_command = "tmux_layouts/dotfiles.sh"
+startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
+
+[[session]]
+name = "papi/infra"
+path = "~/dev/papi/infra"
+startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
+
+[[session]]
+name = "papi/scraper"
+path = "~/dev/papi/scraper"
+startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
+
+[[session]]
+name = "papi/product-monorepo"
+path = "~/dev/papi/product-monorepo"
+startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
