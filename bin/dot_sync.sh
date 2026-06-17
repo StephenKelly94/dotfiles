@@ -15,7 +15,7 @@ fi
 echo "Pulling updates from dotfiles repo..."
 git pull origin main
 
-if [[ $is_stashed ]]; then
+if [[ $is_stashed == true ]]; then
 	echo "Popping stashed changes..."
 	git stash pop
 fi

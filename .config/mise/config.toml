@@ -18,6 +18,9 @@ go = "latest"
 "cargo:zellij" = "latest"
 "npm:tree-sitter-cli" = "latest"
 "go:github.com/joshmedeski/sesh/v2" = "latest"
+"aqua:ajeetdsouza/zoxide" = "latest"
+"aqua:starship/starship" = "latest"
+"ubi:rossmacarthur/sheldon" = "latest"
 
 [settings]
 experimental = true
