@@ -7,6 +7,14 @@ alias lg='lazygit'
 alias lzd='lazydocker'
 alias zshconfig='$EDITOR ~/.zshrc'
 
+# ── tmux ────────────────────────────────────────────────────────────────────
+# Refresh a long-running tmux server's PATH (e.g. after a mise version bump breaks
+# run-shell bindings like prefix-s). Reattach not required.
+alias tmux-refresh-path='tmux set-environment -g PATH "$PATH"'
+
+# ── Processes ───────────────────────────────────────────────────────────────
+alias kp='kill_process'   # function defined in ~/.functions
+
 # ── Listing (eza) ───────────────────────────────────────────────────────────
 if command -v eza >/dev/null 2>&1; then
     alias ls='eza --git --icons=auto'                                   # replace ls with eza
@@ -19,17 +27,30 @@ if command -v eza >/dev/null 2>&1; then
     alias tree='eza --git --icons=auto --tree --level=2'                # tree view, 2 levels deep
 fi
 
-# ── tmux ────────────────────────────────────────────────────────────────────
-# Refresh a long-running tmux server's PATH (e.g. after a mise version bump breaks
-# run-shell bindings like prefix-s). Reattach not required.
-alias tmux-refresh-path='tmux set-environment -g PATH "$PATH"'
-
-# ── Processes ───────────────────────────────────────────────────────────────
-alias kp='kill_process'   # function defined in ~/.functions
-
 # ── kitty terminal integration ──────────────────────────────────────────────
 if [ "$TERM" = "xterm-kitty" ]; then
     alias s='kitty +kitten ssh'
     alias d='kitty +kitten diff'
     alias icat='kitty +kitten icat'
+fi
+
+# ── zsh-only: suffix / global aliases + zmv ──────────────────────────────────
+if [ -n "$ZSH_VERSION" ]; then
+    # Suffix aliases: run a bare `file.ext` to open it in $EDITOR.
+    alias -s {md,txt,json,yaml,yml,toml,el,lua,conf,sh,zsh}="$EDITOR"
+
+    # Global aliases: expand anywhere on the line. Uppercase to avoid clashes.
+    alias -g G='| grep'
+    alias -g L='| less'
+    alias -g H='| head'
+    alias -g T='| tail'
+    alias -g J='| jq'
+    alias -g C='| clip'          # clip(): portable clipboard, see ~/.functions
+    alias -g NE='2>/dev/null'
+    alias -g NUL='>/dev/null 2>&1'
+
+    # zmv (autoloaded in .zshrc).
+    alias mmv='noglob zmv -W'    # simple wildcards, no quotes: mmv '*.jpeg' -> mmv *.jpeg *.jpg
+    alias zcp='zmv -C'           # copy instead of move
+    alias zln='zmv -L'           # symlink instead of move
 fi
