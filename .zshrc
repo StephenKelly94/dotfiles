@@ -7,15 +7,12 @@ setopt auto_pushd           # cd pushes the old dir onto the stack
 setopt pushd_ignore_dups
 setopt interactive_comments # allow inline # comments
 
-# --- zsh-vi-mode config (set before the plugin loads below) ---
-# Bind eagerly, not lazily, so our custom vicmd binds reliably win over zvm's.
-ZVM_LAZY_KEYBINDINGS=false
-# Called by zsh-vi-mode after it initialises (so our binds override its own).
-# `zce` widget comes from the zce.zsh plugin loaded via sheldon.
-function zvm_after_init() {
-    bindkey -M vicmd 's' zce                              # vi normal mode: s → ace-jump
-    command -v fzf >/dev/null 2>&1 && source <(fzf --zsh) # re-apply fzf keybinds after zvm
-}
+autoload -Uz zmv            # batch rename/copy/link; see mmv/zcp/zln in .aliases
+
+# Edit the current command line in $EDITOR (ctrl-x ctrl-e).
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
 
 # --- Plugins (managed by sheldon; see ~/.config/sheldon/plugins.toml) ---
 # (mise shims are on PATH via .zshenv, so the sheldon shim resolves here.)

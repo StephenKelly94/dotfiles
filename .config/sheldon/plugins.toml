@@ -13,9 +13,6 @@ dir = "plugins/completion"
 github = "mattmc3/zephyr"
 dir = "plugins/history"
 
-[plugins.zsh-vi-mode]
-github = "jeffreytse/zsh-vi-mode"
-
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
