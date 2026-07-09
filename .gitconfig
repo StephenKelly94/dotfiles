@@ -1,0 +1,14 @@
+[user]
+	email = stephen.kelly.94@hotmail.com
+	name = Stephen Kelly
+[core]
+	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictStyle = zdiff3
+[fetch]
+	prune = true
