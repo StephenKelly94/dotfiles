@@ -28,7 +28,7 @@ installs the language servers. Give it a moment, then `:restart`.
 | LSP server configs | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)|
 | LSP server install | [mason.nvim](https://github.com/mason-org/mason.nvim) (enabled explicitly — no mason-lspconfig) |
 | Undo history       | built-in `nvim.undotree` (`:packadd`, no third-party plugin) |
-| Syntax / folding   | nvim-treesitter (`master` branch)                         |
+| Syntax / folding   | native `vim.treesitter` (highlight + `foldexpr`); nvim-treesitter (`main`) only installs parsers |
 
 ### How the LSP pieces fit together
 
@@ -79,8 +79,18 @@ per-filetype actions. Mirror `javascript.lua` into `typescript.lua` /
 - **Update:** `:packupdate` — review the diff in the confirmation tab, `:write`
   to apply, then `:restart`.
 - **Add:** add a `{ src = "…" }` entry to `lua/config/plugins.lua` and restart.
-- Tree-sitter parsers rebuild automatically (a `PackChanged` autocmd runs
-  `:TSUpdate` when the plugin changes).
+- Tree-sitter parsers update automatically (a `PackChanged` autocmd calls
+  `require('nvim-treesitter').update()` when the plugin updates). Add a language
+  to the `install({...})` list in `plugins.lua` to get its parser.
+
+### Is Tree-sitter not native?
+
+The *engine* is: highlighting (`vim.treesitter.start()`) and folding
+(`vim.treesitter.foldexpr()`, set in `options.lua`) are pure Neovim. But Neovim
+only ships parsers for **C, Lua, Markdown, Vim and Vimdoc** — and has no
+built-in installer for the rest. That's the one job nvim-treesitter does here
+(on its `main` branch it's *only* a parser installer). We enable highlighting
+ourselves with a one-line `FileType` autocmd, so no plugin owns that path.
 
 ## Keymaps
 

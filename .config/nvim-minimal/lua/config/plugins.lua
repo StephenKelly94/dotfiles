@@ -14,20 +14,26 @@ vim.pack.add({
     -- Servers are enabled explicitly in config/lsp.lua via vim.lsp.enable().
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    -- Tree-sitter. Pinned to `master`: the stable, classic-API branch (the
-    -- `main` branch is a work-in-progress rewrite with a different API).
+    -- Tree-sitter, `main` branch. On this branch nvim-treesitter is *only* a
+    -- parser installer/updater (requires Neovim 0.12): highlighting and folding
+    -- are provided by Neovim natively (vim.treesitter.start / foldexpr). The
+    -- old `master` branch bundled the highlight/indent glue itself.
     {
         src = "https://github.com/nvim-treesitter/nvim-treesitter",
-        version = "master",
+        version = "main",
     },
 })
 
--- Rebuild Tree-sitter parsers whenever the plugin itself is installed/updated.
+-- Rebuild Tree-sitter parsers whenever the plugin itself is updated (parser
+-- definitions may have changed). Neovim ships parsers for C/Lua/Markdown/Vim/
+-- Vimdoc; everything else is installed below.
 vim.api.nvim_create_autocmd("PackChanged", {
-    desc = "Run :TSUpdate after nvim-treesitter changes",
+    desc = "Update Tree-sitter parsers after nvim-treesitter changes",
     callback = function(ev)
-        if ev.data.spec.name == "nvim-treesitter" and ev.data.kind ~= "delete" then
-            vim.cmd("TSUpdate")
+        if ev.data.spec.name == "nvim-treesitter" and ev.data.kind == "update" then
+            pcall(function()
+                require("nvim-treesitter").update()
+            end)
         end
     end,
 })
@@ -158,24 +164,32 @@ later(function()
     })
 end)
 
--- Tree-sitter (classic `master`-branch API)
+-- Tree-sitter parsers (`main`-branch API). install() is a no-op for parsers
+-- that are already present, and runs asynchronously — on a fresh machine give
+-- it a moment, then reopen the file (or :restart) for highlighting to kick in.
 later(function()
-    require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-            "bash",
-            "javascript",
-            "json",
-            "lua",
-            "markdown",
-            "markdown_inline",
-            "tsx",
-            "typescript",
-            "vim",
-            "vimdoc",
-            "yaml",
-        },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
+    require("nvim-treesitter").install({
+        "bash",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "yaml",
     })
 end)
+
+-- Native Tree-sitter highlighting: start it for any buffer whose language has
+-- an installed parser (pcall swallows the "no parser" case). This is the
+-- built-in vim.treesitter.start() the nvim-treesitter docs point to; it could
+-- equally live in ftplugin/<ft>.lua, but one autocmd covers every language.
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "Start Tree-sitter highlighting when a parser is available",
+    callback = function(ev)
+        pcall(vim.treesitter.start, ev.buf)
+    end,
+})
