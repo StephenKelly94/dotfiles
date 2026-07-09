@@ -1,30 +1,50 @@
 -- Language servers, the Neovim-0.11-native way.
 --
--- mason.nvim installs the server binaries; nvim-lspconfig ships the per-server
--- configs in its `lsp/` directory; mason-lspconfig bridges the two and calls
--- `vim.lsp.enable()` for each installed server (automatic_enable, on by
--- default). Overrides go through `vim.lsp.config(<name>, {...})`, which layers
--- on top of lspconfig's defaults.
+-- Three pieces, three distinct jobs:
+--   * mason.nvim      installs the server *binaries* (the executables).
+--   * nvim-lspconfig  ships the per-server *configs* (cmd, filetypes, root
+--                     markers, default settings) under its `lsp/` directory.
+--   * vim.lsp.enable  actually turns a server on. It only starts once its
+--                     config resolves *and* a matching filetype is opened.
 --
--- Order matters: mason and nvim-lspconfig must be set up / on the runtimepath
--- before mason-lspconfig.
+-- The main config used mason-lspconfig, which bundles two conveniences:
+-- auto-installing a list of servers and auto-calling vim.lsp.enable() for each.
+-- We've dropped it to keep the moving parts explicit and visible — below we
+-- install missing binaries through Mason's own registry API, then enable the
+-- servers by name ourselves. Note that Mason package names differ from
+-- lspconfig names (e.g. `lua-language-server` vs `lua_ls`); translating between
+-- them is exactly the job mason-lspconfig used to do behind the scenes.
 
 require("mason").setup()
 
-require("mason-lspconfig").setup({
-    ensure_installed = {
-        "lua_ls",
-        "ts_ls", -- typescript-language-server (papi-scraper is TypeScript)
-        "jsonls",
-        "yamlls",
-        "bashls",
-    },
-    automatic_enable = true,
-})
+-- Servers we want, keyed by Mason package name -> lspconfig config name.
+local servers = {
+    ["lua-language-server"] = "lua_ls",
+    ["typescript-language-server"] = "ts_ls",
+    ["json-lsp"] = "jsonls",
+    ["yaml-language-server"] = "yamlls",
+    ["bash-language-server"] = "bashls",
+}
+
+-- Install any missing binaries. Async so the editor isn't frozen on first run;
+-- servers become available after the install finishes (reopen the file or
+-- :restart). This is the `ensure_installed` behaviour, done by hand.
+local registry = require("mason-registry")
+registry.refresh(function()
+    for mason_name in pairs(servers) do
+        if not registry.is_installed(mason_name) then
+            local ok, pkg = pcall(registry.get_package, mason_name)
+            if ok then
+                pkg:install()
+            end
+        end
+    end
+end)
 
 -- ── Per-server overrides ───────────────────────────────────────────────────
--- Teach lua_ls about the Neovim runtime and the globals used in this config so
--- editing it doesn't produce a wall of "undefined global" warnings.
+-- These layer on top of nvim-lspconfig's defaults. Teach lua_ls about the
+-- Neovim runtime and the globals used in this config so editing it doesn't
+-- produce a wall of "undefined global" warnings.
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
@@ -45,6 +65,14 @@ vim.lsp.config("lua_ls", {
         },
     },
 })
+
+-- Enable the servers. Config resolution (defaults + our overrides above) and
+-- the actual server launch happen lazily, when a matching buffer opens.
+local names = {}
+for _, lsp_name in pairs(servers) do
+    names[#names + 1] = lsp_name
+end
+vim.lsp.enable(names)
 
 -- ── Diagnostics UI ─────────────────────────────────────────────────────────
 vim.diagnostic.config({

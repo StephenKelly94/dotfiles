@@ -10,10 +10,13 @@ vim.pack.add({
     { src = "https://github.com/echasnovski/mini.nvim" },
     -- Nord colourscheme.
     { src = "https://github.com/gbprod/nord.nvim" },
-    -- LSP: server configurations + installer + the bridge between them.
+    -- LSP: server configurations (nvim-lspconfig) + binary installer (mason).
+    -- Servers are enabled explicitly in config/lsp.lua via vim.lsp.enable().
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+    -- Visual undo-history panel (companion to Neovim's built-in persistent
+    -- undo; dependency-free vimscript, configured via g: variables below).
+    { src = "https://github.com/mbbill/undotree" },
     -- Tree-sitter. Pinned to `master`: the stable, classic-API branch (the
     -- `main` branch is a work-in-progress rewrite with a different API).
     {
@@ -31,6 +34,11 @@ vim.api.nvim_create_autocmd("PackChanged", {
         end
     end,
 })
+
+-- undotree (mbbill): open the diff/tree layout on the left and focus it when
+-- toggled. The toggle keymap lives in config/keymaps.lua (<leader>uu).
+vim.g.undotree_WindowLayout = 2
+vim.g.undotree_SetFocusWhenToggle = 1
 
 -- mini.nvim's recommended two-stage loading (see :h MiniDeps-examples):
 --   now()   - things needed for the first screen draw (colourscheme, UI)

@@ -59,3 +59,7 @@ end, { desc = "Toggle diff overlay" })
 map("n", "<leader>gs", function()
     MiniGit.show_at_cursor()
 end, { desc = "Git info at cursor" })
+
+-- ── UI toggles ─────────────────────────────────────────────────────────────
+-- <leader>uu preserves the "undotree toggle" binding from the main config.
+map("n", "<leader>uu", "<cmd>UndotreeToggle<cr>", { desc = "Undotree toggle" })

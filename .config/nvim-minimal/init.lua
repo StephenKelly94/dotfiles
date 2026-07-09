@@ -9,8 +9,10 @@
 --   * mini.nvim    - primary plugin set
 --   * nord.nvim    - colourscheme
 --   * native LSP   - vim.lsp.config / vim.lsp.enable (Neovim 0.11+)
---   * mason        - LSP server installer, bridged by mason-lspconfig
+--   * mason        - LSP server binary installer (enabled explicitly, no bridge)
 --   * treesitter   - highlighting, folding, text objects
+--
+-- Filetype-local settings/keymaps live in ftplugin/ (see ftplugin/*.lua).
 --
 -- Leader keys must be set before any plugin maps against them.
 vim.g.mapleader = " "
