@@ -1,10 +1,47 @@
-# Starship prompt — sensible defaults.
-# Full reference: https://starship.rs/config/
+# Starship prompt. ANSI color names so the prompt follows the terminal theme.
 add_newline = true
 command_timeout = 1000
 
-# Show the time on the right side of the prompt (when the command was run)
-right_format = "$time"
+format = "$all$character"
+right_format = "$status$time"
+
+[directory]
+truncation_length = 8
+truncate_to_repo = false
+truncation_symbol = "…/"
+read_only = " "
+style = "blue"
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+
+[cmd_duration]
+min_time = 2000
+format = "[ $duration]($style) "
+style = "yellow"
+
+[status]
+disabled = false
+format = "[$symbol$status]($style) "
+symbol = "✘ "
+style = "red"
+
+[git_branch]
+symbol = " "
+style = "purple"
+
+[git_status]
+style = "red"
+
+[python]
+symbol = " "
+[golang]
+symbol = " "
+[rust]
+symbol = " "
+[nodejs]
+symbol = " "
 
 [gcloud]
 disabled = true
@@ -13,4 +50,4 @@ disabled = true
 disabled = false
 format = '[$time]($style)'
 time_format = "%H:%M:%S"
-style = "dimmed white"
+style = "bright-black"
