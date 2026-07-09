@@ -17,3 +17,8 @@ startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
 name = "papi/product-monorepo"
 path = "~/dev/papi/product-monorepo"
 startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
+
+[[session]]
+name = "papi/tools"
+path = "~/dev/papi/tools"
+startup_command = "~/dev/dotfiles/bin/tmux_layouts/default.sh"
