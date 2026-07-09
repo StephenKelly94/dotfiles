@@ -4,7 +4,8 @@ export PAGER='less'
 export PATH=$PATH:\
 $HOME/bin:\
 $HOME/.local/bin:\
-$HOME/.bun/bin
+$HOME/.bun/bin:\
+$HOME/.config/emacs/bin
 
 # mise shims: makes mise-managed tools resolve in non-interactive shells too
 # (tmux run-shell, scripts), not just interactive ones via `mise activate`.

@@ -39,3 +39,19 @@ install_tmux() {
     fi
 }
 
+# Pinned to a tagged release for stability (master is a rolling refactor).
+# `sync -e` snapshots the shell PATH so the GUI Emacs.app finds mise/brew tools.
+DOOM_VERSION="v2.1.1"
+install_doom() {
+    local emacs_dir="$HOME/.config/emacs"
+    if [ -d "$emacs_dir" ]; then
+        echo "Doom Emacs already installed; syncing"
+        "$emacs_dir/bin/doom" sync -e || true
+    else
+        echo "Installing Doom Emacs ($DOOM_VERSION)"
+        git clone --branch "$DOOM_VERSION" --depth 1 https://github.com/doomemacs/doomemacs "$emacs_dir"
+        yes | "$emacs_dir/bin/doom" install --no-config
+        "$emacs_dir/bin/doom" sync -e || true
+    fi
+}
+

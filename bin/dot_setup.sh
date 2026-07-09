@@ -53,6 +53,13 @@ main() {
     # Set a default theme (creates the ghostty/kitty active-theme symlinks the
     # configs include; must run after dot_sync.sh has stowed themes/).
     "$(script_dir)/theme" catppuccin-frappe || true
+
+    # Doom needs ~/.config/doom stowed first (done by dot_sync.sh above).
+    if command -v emacs >/dev/null 2>&1; then
+        install_doom
+    else
+        echo "Skipping Doom Emacs install: emacs not found on PATH"
+    fi
 }
 
 main

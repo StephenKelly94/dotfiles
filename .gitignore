@@ -40,3 +40,9 @@
 
 # tmux plugins (cloned by TPM, not tracked)
 .config/tmux/plugins/
+
+# Doom Emacs (framework + build artifacts not tracked)
+.config/doom/*.elc
+.config/doom/custom.el
+.config/doom/.local/
+.config/emacs/
