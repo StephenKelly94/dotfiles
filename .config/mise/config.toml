@@ -1,5 +1,5 @@
 [tools]
-node = "22.22.2"
+node = "24.18.0"
 python = "latest"
 rust = "latest"
 bun = "latest"
