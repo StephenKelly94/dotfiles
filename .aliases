@@ -7,6 +7,11 @@ alias lg='lazygit'
 alias lzd='lazydocker'
 alias zshconfig='$EDITOR ~/.zshrc'
 
+# ── Neovim ──────────────────────────────────────────────────────────────────
+# Standalone minimal 0.12 config (vim.pack + mini.nvim), separate from the main
+# config. Runs under its own NVIM_APPNAME — see ~/.config/nvim-minimal/README.md.
+alias nvim-min='NVIM_APPNAME=nvim-minimal nvim'
+
 # ── Listing (eza) ───────────────────────────────────────────────────────────
 if command -v eza >/dev/null 2>&1; then
     alias ls='eza --git --icons=auto'                                   # replace ls with eza
