@@ -62,4 +62,6 @@ end, { desc = "Git info at cursor" })
 
 -- ── UI toggles ─────────────────────────────────────────────────────────────
 -- <leader>uu preserves the "undotree toggle" binding from the main config.
-map("n", "<leader>uu", "<cmd>UndotreeToggle<cr>", { desc = "Undotree toggle" })
+-- :Undotree is Neovim's built-in plugin (packadd'd in config/plugins.lua) and
+-- toggles the window itself.
+map("n", "<leader>uu", "<cmd>Undotree<cr>", { desc = "Undotree toggle" })

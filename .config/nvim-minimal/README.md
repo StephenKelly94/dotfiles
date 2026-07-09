@@ -27,7 +27,7 @@ installs the language servers. Give it a moment, then `:restart`.
 | LSP client         | native `vim.lsp` (`vim.lsp.config` / `vim.lsp.enable`)    |
 | LSP server configs | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)|
 | LSP server install | [mason.nvim](https://github.com/mason-org/mason.nvim) (enabled explicitly — no mason-lspconfig) |
-| Undo history       | [undotree](https://github.com/mbbill/undotree)            |
+| Undo history       | built-in `nvim.undotree` (`:packadd`, no third-party plugin) |
 | Syntax / folding   | nvim-treesitter (`master` branch)                         |
 
 ### How the LSP pieces fit together
@@ -99,7 +99,7 @@ Leader is `<Space>`. `mini.clue` shows what's available as you type a prefix.
 | `<leader>ca`   | Code action                         |
 | `<leader>cr`   | Rename symbol                       |
 | `<leader>cf`   | Format buffer                       |
-| `<leader>uu`   | Toggle undotree panel               |
+| `<leader>uu`   | Toggle undotree panel (built-in)    |
 | `<leader>p`    | (visual) paste without yanking      |
 
 Neovim 0.11's default LSP maps also apply: `K` hover, `grn` rename, `gra` code
