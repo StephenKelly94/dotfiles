@@ -12,12 +12,13 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- UI niceties not covered by mini.basics.
+-- UI niceties not covered by mini.basics (with only `basic` enabled).
+-- Note: cursorline and signcolumn are already set by mini.basics, so they're
+-- not repeated here. pumheight is only set by basics under `extra_ui` (off),
+-- and basics *reads* winborder to pick border fill-chars, so both stay.
 vim.o.colorcolumn = "+1" -- highlight the column just past 'textwidth'
-vim.o.cursorline = true -- highlight the current line
 vim.o.pumheight = 10 -- cap completion popup height
 vim.o.scrolloff = 6 -- keep some context above/below the cursor
-vim.o.signcolumn = "yes" -- always show the sign column (less horizontal jitter)
 vim.o.winborder = "single" -- bordered floating windows (hover, rename, ...)
 
 -- Folding: Tree-sitter aware, but start fully unfolded. Parsers are installed
