@@ -57,12 +57,13 @@ here rather than mini's `global.json`, and there's no `after/snippets/` (that's 
 mini.snippets convention, not blink's); (2) MiniMax's `lua.json` "remove prefixes"
 entry is dropped, since blink doesn't understand it.
 
-## Plugins (13 `vim.pack` repos)
+## Plugins (14 `vim.pack` repos)
 
 The 11 requested — mini.nvim, snacks.nvim, blink.cmp (pinned to `v1.10.2` for its
 prebuilt Rust binary), friendly-snippets, Neogit, nvim-lspconfig, nvim-treesitter,
 nvim-treesitter-textobjects, conform.nvim, mason.nvim, nvim-tree.lua — plus two
-colorschemes: **kanagawa** (active) and **nord**. Modern Neogit needs no plenary.
+colorschemes (**kanagawa** active, **nord**) and **render-markdown.nvim**
+(in-buffer Markdown rendering). Modern Neogit needs no plenary.
 
 ### mini.nvim modules (24)
 

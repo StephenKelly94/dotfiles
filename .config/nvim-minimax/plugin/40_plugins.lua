@@ -4,13 +4,13 @@
 --
 -- Everything here is a non-mini plugin: the colorscheme, Tree-sitter, native
 -- LSP wiring, blink.cmp completion, conform formatting, Mason, the Neogit git
--- client, nvim-tree, and the snacks.nvim quality-of-life layer.
+-- client, nvim-tree, render-markdown, and the snacks.nvim quality-of-life layer.
 --
--- Total vim.pack repos across the whole config: 13 = the 11 requested
+-- Total vim.pack repos across the whole config: 14 = the 11 requested
 -- (mini.nvim, snacks.nvim, blink.cmp, friendly-snippets, Neogit, nvim-lspconfig,
 -- nvim-treesitter, nvim-treesitter-textobjects, conform.nvim, mason.nvim,
--- nvim-tree.lua) + 2 colorschemes (kanagawa, nord). mini.nvim itself is added
--- in init.lua. Note: modern Neogit no longer requires plenary.nvim.
+-- nvim-tree.lua) + 2 colorschemes (kanagawa, nord) + render-markdown.nvim.
+-- mini.nvim itself is added in init.lua. Note: modern Neogit needs no plenary.
 
 local add = vim.pack.add
 local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
@@ -175,6 +175,19 @@ later(function()
     disable_netrw = true,
     hijack_netrw = true,
   })
+end)
+
+-- Markdown rendering: render-markdown.nvim ════════════════════════════════════
+-- In-buffer rendering of Markdown (headings, code blocks, bullets, tables, ...).
+-- Pure Lua, so no version pin. Uses the Tree-sitter markdown parsers and an icon
+-- provider (mini.icons, mocked in 30_mini.lua). Toggle with `:RenderMarkdown`.
+later(function()
+  add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+  -- Ensure the parsers it needs are present (idempotent). The on-demand FileType
+  -- autocmd only installs 'markdown'; the injected 'markdown_inline' isn't a
+  -- filetype, so it would otherwise never get installed.
+  require("nvim-treesitter").install({ "markdown", "markdown_inline" })
+  require("render-markdown").setup({})
 end)
 
 -- Quality of life: snacks.nvim ════════════════════════════════════════════════
