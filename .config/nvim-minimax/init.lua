@@ -5,7 +5,8 @@
 -- Structure is modelled on the MiniMax reference config
 -- (https://github.com/nvim-mini/MiniMax):
 --
--- ├ init.lua           This file: globals, helpers, plugin manager bootstrap.
+-- ├ init.lua           This file: globals, helpers, plugin bootstrap, and the
+-- │                    mini.basics baseline (so plugin/ files can override it).
 -- ├ plugin/            Sourced automatically at startup, in alphabetical order.
 -- │ ├ 10_options.lua   Built-in Neovim options + a few autocmds.
 -- │ ├ 20_keymaps.lua   Custom general + <Leader> mappings.
@@ -108,3 +109,24 @@ Config.later = function(f)
   misc.safely("later", f)
 end
 Config.now_if_args = vim.fn.argc(-1) > 0 and Config.now or Config.later
+
+-- ┌───────────────────────────┐
+-- │ Baseline options/mappings │
+-- └───────────────────────────┘
+-- mini.basics establishes the sensible option/mapping baseline. It's set up
+-- HERE, before the plugin/ files, on purpose: because it runs first,
+-- `plugin/10_options.lua` can freely OVERRIDE any basics-owned option — that
+-- file stays the single home for all options, no "set it after basics" gotcha.
+--   * options.basic     - number, mouse, ignore/smartcase, undofile, ...
+--   * options.extra_ui  - pumheight, translucent pum/floats, listchars, syntax
+--   * options.win_borders - split fill-chars matching a 'single' border. Set
+--                     explicitly so basics need not read 'winborder' (which
+--                     10_options sets); the two are thus decoupled/order-free.
+--   * mappings.windows / move_with_alt - <C-hjkl> window nav, <M-hjkl> in
+--                     Insert/Command mode.
+Config.now(function()
+  require("mini.basics").setup({
+    options = { basic = true, extra_ui = true, win_borders = "single" },
+    mappings = { windows = true, move_with_alt = true },
+  })
+end)

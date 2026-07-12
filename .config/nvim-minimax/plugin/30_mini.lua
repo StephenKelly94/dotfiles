@@ -4,7 +4,9 @@
 --
 -- mini.nvim is a library of independent modules, each enabled with
 -- `require('mini.xxx').setup(config?)` and exposing a global `MiniXxx` table.
--- This config enables 24 of them, split into two loading stages:
+-- This config uses 24 of them. mini.basics (the option/mapping baseline) is set
+-- up in init.lua so it runs before plugin/ files; the other 23 live here, split
+-- into two loading stages:
 --   * now()   - needed for the first screen draw (icons, statusline, ...).
 --   * later() - everything else, run just after the first draw.
 --
@@ -28,25 +30,9 @@ now(function()
   MiniIcons.tweak_lsp_kind()
 end)
 
--- Common option/mapping/autocmd presets.
---   * options.basic = true    - the sensible defaults (number, mouse,
---                               ignorecase/smartcase, splitright, undofile,
---                               cursorline, signcolumn, ...).
---   * options.extra_ui = true - opinionated UI extras: pumheight, translucent
---                               completion menu + floating windows (pumblend /
---                               winblend), listchars, and syntax-on. This is
---                               why 10_options.lua no longer sets pumheight.
---   * mappings.windows        - <C-hjkl> to move between windows.
---   * mappings.move_with_alt  - <M-hjkl> to move the cursor in Insert and
---                               Command-line modes. (Distinct from mini.move
---                               below, which uses <M-hjkl> in Normal/Visual
---                               mode — different modes, no clash.)
-now(function()
-  require("mini.basics").setup({
-    options = { basic = true, extra_ui = true },
-    mappings = { windows = true, move_with_alt = true },
-  })
-end)
+-- NOTE: mini.basics is set up in init.lua (before the plugin/ files) so that
+-- 10_options.lua can override any basics-owned option. See the "Baseline
+-- options/mappings" block there.
 
 -- Notifications (upper-right). Route vim.notify through it too.
 now(function()

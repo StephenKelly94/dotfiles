@@ -24,10 +24,11 @@ nvim-mm <file>     # open <file> with this config
 
 ```
 init.lua              globals, autocmd/packchanged helpers, now/later loaders,
-                      netrw disable, the mini.diff style knob (Config.diff_style)
-plugin/10_options.lua options mini.basics doesn't cover + trim-on-save + diagnostics
+                      netrw disable, the mini.diff style knob (Config.diff_style),
+                      and the mini.basics baseline (runs before plugin/ files)
+plugin/10_options.lua all option choices (overrides basics freely) + autocmds
 plugin/20_keymaps.lua general + two-key <Leader> mappings; leader group clues
-plugin/30_mini.lua    the 24 mini.nvim modules (now/later split)
+plugin/30_mini.lua    the other 23 mini.nvim modules (now/later split)
 plugin/40_plugins.lua colorschemes, treesitter, LSP, blink.cmp, conform, mason,
                       Neogit, nvim-tree, snacks.nvim
 after/ftplugin/markdown.lua  buffer-local Markdown behaviour (spell/wrap/fold,

@@ -18,7 +18,7 @@ nmap("[p", '<Cmd>exe "put! " . v:register<CR>', "Paste above")
 nmap("]p", '<Cmd>exe "put "  . v:register<CR>', "Paste below")
 
 -- Note: <C-hjkl> window nav and <M-hjkl> insert/cmdline nav come from
--- mini.basics (mappings.windows / move_with_alt) — see 30_mini.lua.
+-- mini.basics (mappings.windows / move_with_alt) — set up in init.lua.
 
 -- ── Leader groups (fed to mini.clue as extra clues) ──────────────────────────
 -- Add an entry here whenever you introduce a new group prefix.

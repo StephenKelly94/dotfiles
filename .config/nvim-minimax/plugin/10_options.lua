@@ -2,25 +2,24 @@
 -- │ Built-in Neovim behaviour │
 -- └──────────────────────────┘
 --
--- Most sensible defaults (number, mouse, ignorecase/smartcase, splitright,
--- undofile, listchars, ...) are set by `mini.basics` with `options.basic = true`
--- in 30_mini.lua. This file only sets what mini.basics doesn't, plus a couple of
--- autocmds. Keeping it small avoids fighting mini.basics.
+-- mini.basics (set up in init.lua, before this file) provides the baseline:
+-- number, mouse, ignore/smartcase, undofile, listchars, pumheight, translucent
+-- pum/floats, etc. Because basics runs first, THIS file is the single home for
+-- all option choices: add whatever you like below, and it overrides basics
+-- cleanly (no ordering gotcha). Below are just the extras basics doesn't set.
 
 -- <Leader> must be set before any mapping is created (20_keymaps / 30_mini run
 -- after this file). Space is roomy and doesn't shadow a useful motion.
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- UI options mini.basics doesn't manage. With basics' `basic` + `extra_ui`
--- presets on (30_mini.lua), basics owns number, cursorline, signcolumn,
--- listchars, pumheight, and pum/win transparency — so those are NOT set here.
--- Only options basics leaves alone live here, plus `winborder`: this file is
--- sourced before basics, and basics *reads* winborder to pick matching split
--- fill-chars, so it must be set first.
+-- Extras basics doesn't set. (To override something basics DOES set — e.g.
+-- turn off transparency with `vim.o.winblend = 0` — just add it here; basics
+-- already ran in init.lua, so this wins.)
 vim.o.colorcolumn = "+1" -- highlight the column just past 'textwidth'
 vim.o.scrolloff = 6 -- keep some context above/below the cursor
-vim.o.winborder = "single" -- default border for all floating windows
+vim.o.winborder = "single" -- default border for all floating windows (matches
+-- basics' win_borders='single' split fill-chars set in init.lua)
 
 -- Folding: Tree-sitter aware, but start fully unfolded. Parsers are installed
 -- in 40_plugins.lua; without one, 'foldexpr' quietly yields no folds.
