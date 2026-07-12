@@ -53,20 +53,24 @@ nmap_leader('bw', '<Cmd>lua MiniBufremove.wipeout()<CR>',        'Wipeout')
 nmap_leader('bW', '<Cmd>lua MiniBufremove.wipeout(0, true)<CR>', 'Wipeout!')
 
 -- e is for 'Explore/Edit' --------------------------------------------------
--- nvim-tree is the sidebar tree; mini.files is the editable Miller-column view.
+-- ee = mini.files (editable Miller-column explorer); eE = nvim-tree sidebar.
+-- ec = fuzzy-pick any file in the config dir; ei/eo/ek/em/ep jump to a specific
+-- config file directly.
 local edit_plugin_file = function(filename)
   return ('<Cmd>edit %s/plugin/%s<CR>'):format(vim.fn.stdpath('config'), filename)
 end
-nmap_leader('ee', '<Cmd>NvimTreeToggle<CR>',                     'Tree toggle')
-nmap_leader('ef', '<Cmd>NvimTreeFindFileToggle<CR>',            'Tree at file')
-nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',              'Files (cwd)')
-nmap_leader('eF', '<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', 'Files (buffer dir)')
-nmap_leader('en', '<Cmd>lua MiniNotify.show_history()<CR>',      'Notifications history')
-nmap_leader('ei', '<Cmd>edit $MYVIMRC<CR>',                      'init.lua')
-nmap_leader('eo', edit_plugin_file('10_options.lua'),           'Options config')
-nmap_leader('ek', edit_plugin_file('20_keymaps.lua'),           'Keymaps config')
-nmap_leader('em', edit_plugin_file('30_mini.lua'),              'MINI config')
-nmap_leader('ep', edit_plugin_file('40_plugins.lua'),           'Plugins config')
+nmap_leader('ee', '<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', 'Files (mini.files)')
+nmap_leader('eE', '<Cmd>NvimTreeToggle<CR>',                    'Tree (nvim-tree)')
+nmap_leader('ef', '<Cmd>NvimTreeFindFileToggle<CR>',           'Tree at file')
+nmap_leader('ec', function()
+  MiniPick.builtin.files({}, { source = { cwd = vim.fn.stdpath('config'), name = 'Config' } })
+end,                                                            'Edit config (picker)')
+nmap_leader('en', '<Cmd>lua MiniNotify.show_history()<CR>',     'Notifications history')
+nmap_leader('ei', '<Cmd>edit $MYVIMRC<CR>',                     'init.lua')
+nmap_leader('eo', edit_plugin_file('10_options.lua'),          'Options config')
+nmap_leader('ek', edit_plugin_file('20_keymaps.lua'),          'Keymaps config')
+nmap_leader('em', edit_plugin_file('30_mini.lua'),             'MINI config')
+nmap_leader('ep', edit_plugin_file('40_plugins.lua'),          'Plugins config')
 
 -- f is for 'Find' (mini.pick / mini.extra) ---------------------------------
 nmap_leader('fb', '<Cmd>Pick buffers<CR>',                      'Buffers')
