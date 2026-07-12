@@ -92,7 +92,25 @@ now_if_args(function()
     appearance = { nerd_font_variant = "mono" },
     completion = { documentation = { auto_show = true } },
     signature = { enabled = true },
-    sources = { default = { "lsp", "path", "snippets", "buffer" } },
+    sources = {
+      default = { "lsp", "path", "snippets", "buffer" },
+      providers = {
+        -- Load our own VSCode-style snippet files (the MiniMax examples). blink
+        -- scans `<config>/snippets` by default; we also add `after/snippets` so
+        -- MiniMax's after/ layout works, and add 'global' to global_snippets so
+        -- `snippets/global.json` (keyed by filename -> "global") is always-on.
+        snippets = {
+          opts = {
+            friendly_snippets = true,
+            global_snippets = { "all", "global" },
+            search_paths = {
+              vim.fn.stdpath("config") .. "/snippets",
+              vim.fn.stdpath("config") .. "/after/snippets",
+            },
+          },
+        },
+      },
+    },
     snippets = { preset = "default" }, -- native vim.snippet + friendly-snippets
     fuzzy = { implementation = "prefer_rust_with_warning" }, -- use the prebuilt binary
   })

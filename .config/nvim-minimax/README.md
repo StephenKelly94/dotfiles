@@ -30,10 +30,28 @@ plugin/20_keymaps.lua general + two-key <Leader> mappings; leader group clues
 plugin/30_mini.lua    the 24 mini.nvim modules (now/later split)
 plugin/40_plugins.lua colorschemes, treesitter, LSP, blink.cmp, conform, mason,
                       Neogit, nvim-tree, snacks.nvim
+after/ftplugin/markdown.lua  buffer-local Markdown behaviour (spell/wrap/fold,
+                             a mini.surround link surrounding) — filetype example
 after/lsp/lua_ls.lua  per-server LSP override (merged over nvim-lspconfig defaults)
+snippets/global.json         global snippets (VSCode format) — always available
+after/snippets/lua.json      Lua-only snippets — filetype example
 ```
 
 Files in `plugin/` are auto-sourced by Neovim at startup in alphabetical order.
+The `after/` and `snippets/` directories mirror MiniMax's example scaffolding.
+
+## Snippets
+
+VSCode-format snippet files, loaded by **blink.cmp** (not mini.snippets, which is
+off). blink scans `snippets/` by default; this config also adds `after/snippets/`
+to its `search_paths` and marks the `global` file as always-on. So:
+
+- `snippets/global.json` — offered in every filetype (`cdate`, `ctime`, `cdtm`).
+- `after/snippets/lua.json` — offered only in Lua (`l`, `req`, `fn`).
+
+Add `snippets/<filetype>.json` (or `after/snippets/<filetype>.json`) for more.
+Note: MiniMax's `lua.json` includes a mini.snippets-only "remove prefixes" entry;
+that's dropped here since blink doesn't understand it.
 
 ## Plugins (13 `vim.pack` repos)
 

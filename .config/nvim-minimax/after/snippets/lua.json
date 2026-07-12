@@ -1,0 +1,5 @@
+{
+  "local": { "prefix": "l", "body": "local $1 = $0" },
+  "require": { "prefix": "req", "body": "local $1 = require(\"$2\")$0" },
+  "function": { "prefix": "fn", "body": ["local function $1($2)", "\t$0", "end"] }
+}
