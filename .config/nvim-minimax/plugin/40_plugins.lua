@@ -168,7 +168,7 @@ end)
 
 -- File tree: nvim-tree ════════════════════════════════════════════════════════
 -- Sidebar tree (netrw was disabled in init.lua). Icons come from the
--- mini.icons devicons shim set up in 30_mini.lua. Toggle with <Leader>ee.
+-- mini.icons devicons shim set up in 30_mini.lua. Toggle with <Leader>eE.
 later(function()
   add({ "https://github.com/nvim-tree/nvim-tree.lua" })
   require("nvim-tree").setup({
