@@ -29,17 +29,21 @@ now(function()
 end)
 
 -- Common option/mapping/autocmd presets.
---   * options.basic = true         - the sensible defaults (see 10_options.lua
---                                     for what we layer on top).
---   * mappings.windows            - <C-hjkl> to move between windows.
---   * mappings.move_with_alt      - <M-hjkl> to move the cursor in Insert and
---                                     Command-line modes. (Distinct from
---                                     mini.move below, which uses <M-hjkl> in
---                                     Normal/Visual mode — different modes, no
---                                     clash.)
+--   * options.basic = true    - the sensible defaults (number, mouse,
+--                               ignorecase/smartcase, splitright, undofile,
+--                               cursorline, signcolumn, ...).
+--   * options.extra_ui = true - opinionated UI extras: pumheight, translucent
+--                               completion menu + floating windows (pumblend /
+--                               winblend), listchars, and syntax-on. This is
+--                               why 10_options.lua no longer sets pumheight.
+--   * mappings.windows        - <C-hjkl> to move between windows.
+--   * mappings.move_with_alt  - <M-hjkl> to move the cursor in Insert and
+--                               Command-line modes. (Distinct from mini.move
+--                               below, which uses <M-hjkl> in Normal/Visual
+--                               mode — different modes, no clash.)
 now(function()
   require("mini.basics").setup({
-    options = { basic = true },
+    options = { basic = true, extra_ui = true },
     mappings = { windows = true, move_with_alt = true },
   })
 end)

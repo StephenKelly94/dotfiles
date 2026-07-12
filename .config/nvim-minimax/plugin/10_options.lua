@@ -12,14 +12,15 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- UI niceties not covered by mini.basics (with only `basic` enabled).
--- Note: cursorline and signcolumn are already set by mini.basics, so they're
--- not repeated here. pumheight is only set by basics under `extra_ui` (off),
--- and basics *reads* winborder to pick border fill-chars, so both stay.
+-- UI options mini.basics doesn't manage. With basics' `basic` + `extra_ui`
+-- presets on (30_mini.lua), basics owns number, cursorline, signcolumn,
+-- listchars, pumheight, and pum/win transparency — so those are NOT set here.
+-- Only options basics leaves alone live here, plus `winborder`: this file is
+-- sourced before basics, and basics *reads* winborder to pick matching split
+-- fill-chars, so it must be set first.
 vim.o.colorcolumn = "+1" -- highlight the column just past 'textwidth'
-vim.o.pumheight = 10 -- cap completion popup height
 vim.o.scrolloff = 6 -- keep some context above/below the cursor
-vim.o.winborder = "single" -- bordered floating windows (hover, rename, ...)
+vim.o.winborder = "single" -- default border for all floating windows
 
 -- Folding: Tree-sitter aware, but start fully unfolded. Parsers are installed
 -- in 40_plugins.lua; without one, 'foldexpr' quietly yields no folds.
