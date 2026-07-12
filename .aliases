@@ -7,6 +7,11 @@ alias lg='lazygit'
 alias lzd='lazydocker'
 alias zshconfig='$EDITOR ~/.zshrc'
 
+# ── Neovim ──────────────────────────────────────────────────────────────────
+# mini.nvim-first config (vim.pack), separate from the main config. Runs under
+# its own NVIM_APPNAME — see ~/.config/nvim-minimax/README.md.
+alias nvim-mm='NVIM_APPNAME=nvim-minimax nvim'
+
 # ── tmux ────────────────────────────────────────────────────────────────────
 # Refresh a long-running tmux server's PATH (e.g. after a mise version bump breaks
 # run-shell bindings like prefix-s). Reattach not required.
