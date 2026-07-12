@@ -42,11 +42,6 @@ end
 local xmap_leader = function(suffix, rhs, desc)
   vim.keymap.set("x", "<Leader>" .. suffix, rhs, { desc = desc })
 end
--- Map a <Leader> suffix in several modes at once (for maps that make sense in
--- both Normal and Visual, like git-at-cursor / git-at-selection).
-local map_leader = function(modes, suffix, rhs, desc)
-  vim.keymap.set(modes, "<Leader>" .. suffix, rhs, { desc = desc })
-end
 
 -- stylua: ignore start
 
@@ -91,14 +86,15 @@ nmap_leader('fv', '<Cmd>Pick visit_paths<CR>',                  'Visit paths (cw
 nmap_leader('fV', '<Cmd>Pick visit_paths cwd=""<CR>',           'Visit paths (all)')
 
 -- g is for 'Git' (Neogit client, mini.git info, mini.diff hunks, snacks browse)
--- gs / gB work in Normal and Visual (act on the line or the selected range).
 nmap_leader('gg', '<Cmd>Neogit<CR>',                            'Neogit')
 nmap_leader('gc', '<Cmd>Neogit commit<CR>',                     'Commit')
 nmap_leader('gd', '<Cmd>Git diff<CR>',                          'Diff (mini.git)')
 nmap_leader('gl', '<Cmd>Git log --oneline<CR>',                 'Log (mini.git)')
 nmap_leader('go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>',     'Toggle diff overlay')
-map_leader({ 'n', 'x' }, 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at cursor/selection')
-map_leader({ 'n', 'x' }, 'gB', '<Cmd>lua Snacks.gitbrowse()<CR>',       'Browse in remote')
+nmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>',      'Show at cursor')
+nmap_leader('gB', '<Cmd>lua Snacks.gitbrowse()<CR>',            'Browse in remote')
+xmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>',      'Show at selection')
+xmap_leader('gB', '<Cmd>lua Snacks.gitbrowse()<CR>',            'Browse selection')
 
 -- l is for 'Language' (native LSP + conform) -------------------------------
 -- These deliberately live under <Leader>l rather than the built-in `gr*` maps.
