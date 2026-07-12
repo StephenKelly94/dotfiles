@@ -33,25 +33,28 @@ plugin/40_plugins.lua colorschemes, treesitter, LSP, blink.cmp, conform, mason,
 after/ftplugin/markdown.lua  buffer-local Markdown behaviour (spell/wrap/fold,
                              a mini.surround link surrounding) — filetype example
 after/lsp/lua_ls.lua  per-server LSP override (merged over nvim-lspconfig defaults)
-snippets/global.json         global snippets (VSCode format) — always available
-after/snippets/lua.json      Lua-only snippets — filetype example
+snippets/all.json            global snippets (VSCode format) — always available
+snippets/lua.json            Lua-only snippets — filetype example
 ```
 
 Files in `plugin/` are auto-sourced by Neovim at startup in alphabetical order.
-The `after/` and `snippets/` directories mirror MiniMax's example scaffolding.
+`after/ftplugin/` and `after/lsp/` follow Neovim's own `after/` convention.
 
 ## Snippets
 
-VSCode-format snippet files, loaded by **blink.cmp** (not mini.snippets, which is
-off). blink scans `snippets/` by default; this config also adds `after/snippets/`
-to its `search_paths` and marks the `global` file as always-on. So:
+VSCode-format snippet files, loaded by **blink.cmp** (mini.snippets is off). This
+uses blink's native mechanism with no extra config: blink scans `<config>/snippets`
+and keys files by name — `all.json` is blink's default global key, `lua.json` is
+Lua-only, etc. So:
 
-- `snippets/global.json` — offered in every filetype (`cdate`, `ctime`, `cdtm`).
-- `after/snippets/lua.json` — offered only in Lua (`l`, `req`, `fn`).
+- `snippets/all.json` — offered in every filetype (`cdate`, `ctime`, `cdtm`).
+- `snippets/lua.json` — offered only in Lua (`l`, `req`, `fn`).
 
-Add `snippets/<filetype>.json` (or `after/snippets/<filetype>.json`) for more.
-Note: MiniMax's `lua.json` includes a mini.snippets-only "remove prefixes" entry;
-that's dropped here since blink doesn't understand it.
+Add `snippets/<filetype>.json` for more. Two notes on the MiniMax origin: its
+snippet examples target *mini.snippets*, so (1) the global file is `all.json`
+here rather than mini's `global.json`, and there's no `after/snippets/` (that's a
+mini.snippets convention, not blink's); (2) MiniMax's `lua.json` "remove prefixes"
+entry is dropped, since blink doesn't understand it.
 
 ## Plugins (13 `vim.pack` repos)
 
