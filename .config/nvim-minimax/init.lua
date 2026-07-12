@@ -118,7 +118,10 @@ Config.now_if_args = vim.fn.argc(-1) > 0 and Config.now or Config.later
 -- `plugin/10_options.lua` can freely OVERRIDE any basics-owned option — that
 -- file stays the single home for all options, no "set it after basics" gotcha.
 --   * options.basic     - number, mouse, ignore/smartcase, undofile, ...
---   * options.extra_ui  - pumheight, translucent pum/floats, listchars, syntax
+--   * options.extra_ui  - pumheight, translucent pum/floats, listchars, syntax.
+--                     If the transparency reads muddy on your colorscheme, kill
+--                     it in 10_options.lua: `vim.o.pumblend = 0` (menu) and/or
+--                     `vim.o.winblend = 0` (floats) — those run after basics.
 --   * options.win_borders - split fill-chars matching a 'single' border. Set
 --                     explicitly so basics need not read 'winborder' (which
 --                     10_options sets); the two are thus decoupled/order-free.
